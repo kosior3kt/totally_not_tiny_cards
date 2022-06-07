@@ -81,7 +81,7 @@ frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& tit
 
     m_button17->Bind(wxEVT_BUTTON, &frameAddDeck::openStart, this);
     m_button18->Bind(wxEVT_BUTTON, &frameAddDeck::descriptionOfTheDeck, this);
-//    m_button19->Bind(wxEVT_BUTTON, &frameAddDeck::dupa, this);
+    m_button36->Bind(wxEVT_BUTTON, &frameAddDeck::dupa, this);
 }
 
 frameAddDeck::~frameAddDeck()
@@ -102,4 +102,18 @@ void frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
     m_staticText3->SetLabel(temp);
     m_staticText3->Wrap( -1 );
     delete tempDataBaseParser;
+}
+
+void frameAddDeck::dupa(wxCommandEvent & e) {
+    dataBaseParser *tempDataBaseParser = new dataBaseParser();
+    std::cout<<tempDataBaseParser->returnBackOfCard(1,1)<<"\n";
+    dataBaseParser *tempDataBaseParser2 = new dataBaseParser();
+    std::cout<<tempDataBaseParser2->returnFrontOfCard(1,1)<<"\n";
+    dataBaseParser *tempDataBaseParser3 = new dataBaseParser();
+    std::cout<<tempDataBaseParser3->returnNumberOfTimesBeingGuessed(1,1)<<"\n";
+
+
+    delete tempDataBaseParser;
+    delete tempDataBaseParser2;
+    delete tempDataBaseParser3;
 }

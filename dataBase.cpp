@@ -3,6 +3,7 @@
 //
 
 #include "dataBase.h"
+#include "backendLogic.h"
 
 MYSQL *dataBaseParser::mysql_connection_setup(dataBaseParser::connection_details mySqlDetails) {
 
@@ -18,7 +19,7 @@ MYSQL_RES *dataBaseParser::mysql_execute_querry(MYSQL *connection, const char *s
 
     if(mysql_query(connection, sql_query)){
         std::cout<<"jebło 2 \n";
-        exit(1);
+        exit(420);
     }
     return mysql_use_result(connection);
 }
@@ -52,12 +53,14 @@ const char * dataBaseParser::combineStrings() {
 
 void dataBaseParser::makeItAllWork() {
     connect();
+    const char * qry = "use myqsl_tuts;";
+    dataBaseParser::mysql_execute_querry(this->con,  qry);
 //    insertQuerry();
-    returnNumberOfCardsInDeck();
+//    returnNumberOfCardsInDeck(0);
 //    std::cout<<"\n";
-    returnNumberOfDecks();
+//    returnNumberOfDecks();
 //    std::cout<<returnNumberOfDecks();
-    returnNameOfDeck(4);
+//    returnNameOfDeck(4);
 //    std::cout<<returnCommentToDeck(0);
 }
 
@@ -94,8 +97,9 @@ void dataBaseParser::fillStringForReturningNumberOfCards(std::string deckName) {
     this->selectPhrase2=deckName.c_str();
 }
 
-int dataBaseParser::returnNumberOfCardsInDeck() {
-    fillStringForReturningNumberOfCards();
+int dataBaseParser::returnNumberOfCardsInDeck(int number=0) {
+
+    fillStringForReturningNumberOfCards(returnNameOfDeck(number));
 //    std::cout<<combineStrings();
     res = dataBaseParser::mysql_execute_querry(this->con,  combineStrings());
     int temp;
@@ -153,6 +157,90 @@ dataBaseParser::~dataBaseParser() {
 
     mysql_free_result(res);
     mysql_close(con);
+}
+
+void dataBaseParser::fillTheMap(int numberOfDeck) {
+
+    std::unique_ptr<backendLogic> temp;
+    int tempNumberOfCards = this->returnNumberOfCardsInDeck(numberOfDeck);
+
+
+    for(int i=0; i<tempNumberOfCards; i++){
+        temp->cards[this->returnFrontOfCard(numberOfDeck,i)]={this->returnFrontOfCard(numberOfDeck,i), this->returnBackOfCard(numberOfDeck,i), this->returnNumberOfTimesBeingGuessed(numberOfDeck,i)};
+
+        backendLogic::cardsInfo& chuj_wie = temp->cards[this->returnFrontOfCard(numberOfDeck,i)];
+
+        std::cout<<chuj_wie.frontOfTheCard<<"    <---- mama nadzieje, ze to zadzialaalo =3\n";
+    }
+
+
+}
+
+std::string dataBaseParser::returnFrontOfCard(int numberOfTheDeck, int numberOfTheCard) {
+
+    std::string temp1 = "SELECT front FROM ";
+    std::string tempDeckName = this->returnNameOfDeck(numberOfTheDeck);
+
+    std::string temp3 =";";
+    std::string temp4 = temp1+tempDeckName+temp3;
+
+    const char * qry = temp4.c_str();
+
+    std::cout<<qry;
+
+    res = dataBaseParser::mysql_execute_querry(this->con,  qry);
+
+int iterator=0;
+    while((row = mysql_fetch_row(res))){
+        if(iterator==numberOfTheCard){
+            return row[0];
+        }
+        iterator++;
+    }
+
+    return "cos jak zawsze sie zjebalo ale we froncie tym razem";
+}
+
+std::string dataBaseParser::returnBackOfCard(int numberOfTheDeck, int numberOfTheCard) {
+    std::string temp1 = "SELECT back FROM ";
+    std::string tempDeckName = this->returnNameOfDeck(numberOfTheDeck);
+    std::string temp3 =";";
+    std::string temp4 = temp1+tempDeckName+temp3;
+
+    const char * qry = temp4.c_str();
+
+    res = dataBaseParser::mysql_execute_querry(this->con,  qry);
+
+    int iterator=0;
+    while((row = mysql_fetch_row(res))){
+        if(iterator==numberOfTheCard){
+            return row[0];
+        }
+        iterator++;
+    }
+
+    return "cos jak zawsze sie zjebalo ale we backu tym razem";
+}
+
+int dataBaseParser::returnNumberOfTimesBeingGuessed(int numberOfTheDeck, int numberOfTheCard) {
+    std::string temp1 = "SELECT numberOfTimesGuessed FROM ";
+    std::string tempDeckName = this->returnNameOfDeck(numberOfTheDeck);
+    std::string temp3 =";";
+    std::string temp4 = temp1+tempDeckName+temp3;
+
+    const char * qry = temp4.c_str();
+
+    res = dataBaseParser::mysql_execute_querry(this->con,  qry);
+
+    int iterator=0;
+    while((row = mysql_fetch_row(res))){
+        if(iterator==numberOfTheCard){
+            return std::atoi(row[0]);
+        }
+        iterator++;
+    }
+
+    return 69;
 }
 
 

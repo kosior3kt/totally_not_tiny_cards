@@ -35,12 +35,21 @@ public:
      void fillStringForReturningNumberOfDecks();
      void fillStringForReturningNumberOfCards(std::string deckName="dummyDeck");
      int returnNumberOfDecks();
-     int returnNumberOfCardsInDeck();
+     int returnNumberOfCardsInDeck(int);
+     std::string returnFrontOfCard(int, int);
+     std::string returnBackOfCard(int, int);
+     int returnNumberOfTimesBeingGuessed(int, int);
      std::string returnNameOfDeck(int number);
      const char * combineStrings();
      void makeItAllWork();
     std::string returnCommentToDeck(int number);
+
+    void fillTheMap(int);
+
     ~dataBaseParser();
+
+
+
 
      const char * selectPhrase1 = "select * from ";
      const char* selectPhrase2;
