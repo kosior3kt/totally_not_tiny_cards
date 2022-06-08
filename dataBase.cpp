@@ -5,6 +5,8 @@
 #include "dataBase.h"
 #include "backendLogic.h"
 
+backendLogic * temp = new backendLogic();
+
 MYSQL *dataBaseParser::mysql_connection_setup(dataBaseParser::connection_details mySqlDetails) {
 
     MYSQL *connection = mysql_init(NULL);
@@ -53,7 +55,7 @@ const char * dataBaseParser::combineStrings() {
 
 void dataBaseParser::makeItAllWork() {
     connect();
-    const char * qry = "use myqsl_tuts;";
+    const char * qry = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'mysql_tuts';";
     dataBaseParser::mysql_execute_querry(this->con,  qry);
 //    insertQuerry();
 //    returnNumberOfCardsInDeck(0);
@@ -147,7 +149,7 @@ std::string dataBaseParser::returnCommentToDeck(int number) {
 
     const char * qry = temp4.c_str();
     res = dataBaseParser::mysql_execute_querry(this->con,  qry);
-    (row = mysql_fetch_row(res));
+    row = mysql_fetch_row(res);
     std::string wholePhrase = row[0];
 
     return wholePhrase;
@@ -161,17 +163,48 @@ dataBaseParser::~dataBaseParser() {
 
 void dataBaseParser::fillTheMap(int numberOfDeck) {
 
-    std::unique_ptr<backendLogic> temp;
-    int tempNumberOfCards = this->returnNumberOfCardsInDeck(numberOfDeck);
+    this->connect();
+
+//    std::cout<<"\ntutaj jeblo 0\n";
+//    int tempNumberOfCards = this->returnNumberOfCardsInDeck(numberOfDeck);
+
+    std::cout<<"\ntutaj jeblo 1\n";
 
 
-    for(int i=0; i<tempNumberOfCards; i++){
-        temp->cards[this->returnFrontOfCard(numberOfDeck,i)]={this->returnFrontOfCard(numberOfDeck,i), this->returnBackOfCard(numberOfDeck,i), this->returnNumberOfTimesBeingGuessed(numberOfDeck,i)};
+//    for(int i=0; i<tempNumberOfCards; i++){
+//    std::string tempFront = this->returnFrontOfCard(numberOfDeck,i);
+//    std::string tempBack = this->returnBackOfCard(numberOfDeck,i);
+//    int tempNumberOfTimesGuessed = this->returnNumberOfTimesBeingGuessed(numberOfDeck,i);
+//        std::cout<<"\ntutaj jeblo 1\n";
+//        temp->cards[tempFront]={tempFront, tempBack, tempNumberOfTimesGuessed};
+//        std::cout<<"\ntutaj jeblo 2\n";
+//        backendLogic::cardsInfo& chuj_wie = temp->cards[this->returnFrontOfCard(numberOfDeck,i)];
+//
+//        std::cout<<chuj_wie.frontOfTheCard<<"    <---- mama nadzieje, ze to zadzialaalo =3\n";
+//    }
 
-        backendLogic::cardsInfo& chuj_wie = temp->cards[this->returnFrontOfCard(numberOfDeck,i)];
+    const char * qry = "select * from mysql_tuts.dummydeck;";
+
+    res = dataBaseParser::mysql_execute_querry(this->con,  qry);
+    std::cout<<"jeblo znowu 2.5\n";
+int i =0;
+    while(this->row = mysql_fetch_row(res)){
+//        std::string tempDupa = this->returnFrontOfCard(1,i);
+        std::cout<<"tutej dziala nadal";
+//            std::cout<< row[0] << "\n\n";     //dziala juz tez xD
+        //std::cout<<row[0];
+        //std::cout<<row[1];
+        //std::cout<<row[2];
+        temp->cards[row[0]] = { row[0], row[1], std::atoi(row[2])}; //z jakiegos powodu ten zapis nie dziala :<
+        std::cout<<"dziala tutaj ejszcze \n";
+        backendLogic::cardsInfo& chuj_wie = temp->cards[row[0]];
+        std::cout<<"\ntutaj jeblo 3\n";
 
         std::cout<<chuj_wie.frontOfTheCard<<"    <---- mama nadzieje, ze to zadzialaalo =3\n";
+//            std::cout<<temp;
+i++;
     }
+
 
 
 }

@@ -14,6 +14,7 @@
 #include <sstream>
 
 #include "main.h"
+#include "backendLogic.h"
 
 class dataBaseParser{
 public:
@@ -43,7 +44,6 @@ public:
      const char * combineStrings();
      void makeItAllWork();
     std::string returnCommentToDeck(int number);
-
     void fillTheMap(int);
 
     ~dataBaseParser();

@@ -105,15 +105,20 @@ void frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
 }
 
 void frameAddDeck::dupa(wxCommandEvent & e) {
-    dataBaseParser *tempDataBaseParser = new dataBaseParser();
-    std::cout<<tempDataBaseParser->returnBackOfCard(1,1)<<"\n";
-    dataBaseParser *tempDataBaseParser2 = new dataBaseParser();
-    std::cout<<tempDataBaseParser2->returnFrontOfCard(1,1)<<"\n";
-    dataBaseParser *tempDataBaseParser3 = new dataBaseParser();
-    std::cout<<tempDataBaseParser3->returnNumberOfTimesBeingGuessed(1,1)<<"\n";
+//    dataBaseParser *tempDataBaseParser = new dataBaseParser();
+//    std::cout<<tempDataBaseParser->returnBackOfCard(1,1)<<"\n";
+//    tempDataBaseParser->makeItAllWork();
+//    dataBaseParser *tempDataBaseParser2 = new dataBaseParser();
+//    std::cout<<tempDataBaseParser2->returnFrontOfCard(1,1)<<"\n";
+//    dataBaseParser *tempDataBaseParser3 = new dataBaseParser();
+//    std::cout<<tempDataBaseParser3->returnNumberOfTimesBeingGuessed(1,1)<<"\n";
 
+    dataBaseParser *tempDataBaseParser4 = new dataBaseParser();
+    std::cout<<"\n\nwypelniam deck kartami!!\n\n";
+    tempDataBaseParser4->fillTheMap(1);
 
-    delete tempDataBaseParser;
-    delete tempDataBaseParser2;
-    delete tempDataBaseParser3;
+//    delete tempDataBaseParser;
+//    delete tempDataBaseParser2;
+//    delete tempDataBaseParser3;
+    delete tempDataBaseParser4;
 }
