@@ -3,10 +3,12 @@
 //
 
 #include "main.h"
-#include "dataBase.h"
 
-frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
+
+
+allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
+    static backendLogic logic;
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
     wxBoxSizer* bSizer13;
@@ -25,15 +27,14 @@ frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& tit
 //    m_button19 = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Add Deck"), wxDefaultPosition, wxDefaultSize, 0 );
 //    bSizer15->Add( m_button19, 0, wxEXPAND|wxALL, 5 );
 
-    dataBaseParser *p = new dataBaseParser;
 
         auto dodaj = [&](int i) {
-            auto button = new wxButton(m_scrolledWindow2, i, p->returnNameOfDeck(i), wxDefaultPosition, wxDefaultSize, 0);
+            auto button = new wxButton(m_scrolledWindow2, i, logic.returnNameOfDeck(i), wxDefaultPosition, wxDefaultSize, 0);
             bSizer15->Add(button, 0, wxEXPAND | wxALL, 5);
             button->Bind(wxEVT_BUTTON, &frameAddDeck::descriptionOfTheDeck, this);
         };
 
-        for(int i=0; i<p->returnNumberOfDecks();i++){
+        for(int i=0; i<logic.parser.returnNumberOfDecks();i++){
             dodaj(i);
         }
 
@@ -84,27 +85,26 @@ frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& tit
     m_button36->Bind(wxEVT_BUTTON, &frameAddDeck::dupa, this);
 }
 
-frameAddDeck::~frameAddDeck()
+allFrames::frameAddDeck::~frameAddDeck()
 {
 }
 
-void frameAddDeck::openStart(wxCommandEvent &) {
+void allFrames::frameAddDeck::openStart(wxCommandEvent &) {
 
-    frameStart *frame_add = new frameStart(NULL);
+    auto *frame_add = new frameStart(NULL);
     frame_add->Show(true);
     this->Show(false);
 
 }
 
-void frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
-    dataBaseParser *tempDataBaseParser = new dataBaseParser();
-    std::string temp = tempDataBaseParser->returnCommentToDeck(e.GetId());
+void allFrames::frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
+    backendLogic logic;
+    std::string temp = logic.returnCommentToDeck(e.GetId());
     m_staticText3->SetLabel(temp);
     m_staticText3->Wrap( -1 );
-    delete tempDataBaseParser;
 }
 
-void frameAddDeck::dupa(wxCommandEvent & e) {
+void allFrames::frameAddDeck::dupa(wxCommandEvent &e) {
 //    dataBaseParser *tempDataBaseParser = new dataBaseParser();
 //    std::cout<<tempDataBaseParser->returnBackOfCard(1,1)<<"\n";
 //    tempDataBaseParser->makeItAllWork();
@@ -112,13 +112,15 @@ void frameAddDeck::dupa(wxCommandEvent & e) {
 //    std::cout<<tempDataBaseParser2->returnFrontOfCard(1,1)<<"\n";
 //    dataBaseParser *tempDataBaseParser3 = new dataBaseParser();
 //    std::cout<<tempDataBaseParser3->returnNumberOfTimesBeingGuessed(1,1)<<"\n";
+//    std::cout<<"\n\nwypelniam deck kartami!!\n\n";
+//    tempDataBaseParser4->fillTheVector(1);
 
-    dataBaseParser *tempDataBaseParser4 = new dataBaseParser();
-    std::cout<<"\n\nwypelniam deck kartami!!\n\n";
-    tempDataBaseParser4->fillTheMap(1);
+    backendLogic logic;
+    std::cout << logic.returnBackOfCard(1, 1);
+    std::cout<<"\n";
 
 //    delete tempDataBaseParser;
 //    delete tempDataBaseParser2;
 //    delete tempDataBaseParser3;
-    delete tempDataBaseParser4;
+//    delete tempDataBaseParser4;
 }

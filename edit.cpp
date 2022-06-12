@@ -4,7 +4,7 @@
 
 #include "main.h"
 
-frameEditDeck::frameEditDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
+allFrames::frameEditDeck::frameEditDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
@@ -79,6 +79,6 @@ frameEditDeck::frameEditDeck( wxWindow* parent, wxWindowID id, const wxString& t
     this->Centre( wxBOTH );
 }
 
-frameEditDeck::~frameEditDeck()
+allFrames::frameEditDeck::~frameEditDeck()
 {
 }

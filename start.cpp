@@ -4,7 +4,7 @@
 
 #include "main.h"
 
-frameStart::frameStart( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
+allFrames::frameStart::frameStart( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 
 
@@ -53,25 +53,24 @@ frameStart::frameStart( wxWindow* parent, wxWindowID id, const wxString& title, 
     b_exit->Bind(wxEVT_BUTTON, &frameStart::OnExit, this);
 }
 
-frameStart::~frameStart()
+allFrames::frameStart::~frameStart()
 {
 
 }
 
-void frameStart::openChoice(wxCommandEvent &) {
+void allFrames::frameStart::openChoice(wxCommandEvent &) {
     frameChooseDeck *frame_add = new frameChooseDeck(NULL);
     frame_add->Show(true);
     this->Show(false);
 }
 
-void frameStart::openAdd(wxCommandEvent &) {
+void allFrames::frameStart::openAdd(wxCommandEvent &) {
     frameAddDeck *frame_choice = new frameAddDeck(NULL);
     frame_choice->Show(true);
     this->Show(false);
 }
 
-void frameStart::OnExit(wxCommandEvent& event)
-{
+void allFrames::frameStart::OnExit(wxCommandEvent& event) {
     Close( true );
     this->Destroy();
 }

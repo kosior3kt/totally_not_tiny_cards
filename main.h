@@ -21,146 +21,160 @@
 #include <wx/wxprec.h>
 #ifndef WX_PRECOMP
 #include <wx/wx.h>
+#include "backendLogic.h"
 #endif
 
 
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class frameStart
-///////////////////////////////////////////////////////////////////////////////
-class frameStart : public wxFrame
+class MyApp: public wxApp
 {
-	private:
+public:
+    virtual bool OnInit();
+};
 
-	protected:
-		wxButton* b_start;  //m_button1
-		wxButton* b_addDeck;    //m_button2
-		wxButton* b_settings;    //m_button3
-		wxButton* b_exit;    //m_button4
+class allFrames : public MyApp
+        {
+        public:
 
-	public:
 
-		frameStart( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 397,334 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+
+    ///////////////////////////////////////////////////////////////////////////////
+    /// Class frameStart
+    ///////////////////////////////////////////////////////////////////////////////
+    class frameStart : public wxFrame
+    {
+    private:
+
+    protected:
+        wxButton* b_start;  //m_button1
+        wxButton* b_addDeck;    //m_button2
+        wxButton* b_settings;    //m_button3
+        wxButton* b_exit;    //m_button4
+
+    public:
+
+        frameStart( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 397,334 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
         ///Methody cos tam cos tam sraken pierdaken
         void openChoice(wxCommandEvent &);
         void openAdd(wxCommandEvent &);
         void OnExit(wxCommandEvent&);
-		~frameStart();
-};
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class frameLesson
-///////////////////////////////////////////////////////////////////////////////
-class frameLesson : public wxFrame
-{
-	private:
+        ~frameStart();
+    };
+    ///////////////////////////////////////////////////////////////////////////////
+    /// Class frameLesson
+    ///////////////////////////////////////////////////////////////////////////////
+    class frameLesson : public wxFrame
+    {
+    private:
         std::vector<std::string> front;
         std::vector<std::string> back;
-	protected:
-		wxScrolledWindow* m_scrolledWindow1;
-		wxGauge* m_gauge1;
-		wxStaticText* m_staticText1;
-		wxStaticText* m_staticText8;
-		wxTextCtrl* m_textCtrl1;
-		wxButton* m_button7;        //m_button7
-		wxButton* m_button8;        //m_button8
+    protected:
+        wxScrolledWindow* m_scrolledWindow1;
+        wxGauge* m_gauge1;
+        wxStaticText* m_staticText1;
+        wxStaticText* m_staticText8;
+        wxTextCtrl* m_textCtrl1;
+        wxButton* m_button7;        //m_button7
+        wxButton* m_button8;        //m_button8
         wxButton* b_sprawdz;
 
-	public:
+    public:
 
-		frameLesson( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 620,497 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        frameLesson( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 620,497 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
-		~frameLesson();
+        ~frameLesson();
 
-};
+    };
 
-///////////////////////////////////////////////////////////////////////////////
-/// Class frameChooseDeck
-///////////////////////////////////////////////////////////////////////////////
-class frameChooseDeck: public wxFrame
-{
-	private:
+    ///////////////////////////////////////////////////////////////////////////////
+    /// Class frameChooseDeck
+    ///////////////////////////////////////////////////////////////////////////////
+    class frameChooseDeck: public wxFrame
+    {
+    private:
+    protected:
+        wxScrolledWindow* m_scrolledWindow2;
+        wxButton* m_button8;        //m_button8
+        wxButton* m_button19;        //m_button19
+        wxStaticText* m_staticText3;
+        wxButton* m_button17;        //m_button17
+        wxButton* m_button18;        //m_button18
 
-	protected:
-		wxScrolledWindow* m_scrolledWindow2;
-		wxButton* m_button8;        //m_button8
-		wxButton* m_button19;        //m_button19
-		wxStaticText* m_staticText3;
-		wxButton* m_button17;        //m_button17
-		wxButton* m_button18;        //m_button18
-
-	public:
+    public:
 //         int integer;
 //         wxStaticText staticText;
 //          static int currentlyChosen;
-         frameChooseDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 558,420 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
-         void descriptionOfTheDeck(wxCommandEvent &);
-         void openLesson(wxCommandEvent &);
+        frameChooseDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 558,420 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        void descriptionOfTheDeck(wxCommandEvent &);
+        void openLesson(wxCommandEvent &);
         void openStart(wxCommandEvent &);
 
-		~frameChooseDeck();
+        ~frameChooseDeck();
 
-};
+    };
 
-///////////////////////////////////////////////////////////////////////////////
-/// Class frameEditDeck
-///////////////////////////////////////////////////////////////////////////////
-class frameEditDeck : public wxFrame
-{
-	private:
+    ///////////////////////////////////////////////////////////////////////////////
+    /// Class frameEditDeck
+    ///////////////////////////////////////////////////////////////////////////////
+    class frameEditDeck : public wxFrame
+    {
+    private:
+    protected:
+        wxScrolledWindow* m_scrolledWindow2;
+        wxButton* m_button8;        //m_button8
+        wxButton* m_button19;        //m_button19
+        wxStaticText* m_staticText6;
+        wxTextCtrl* m_textCtrl3;
+        wxStaticText* m_staticText7;
+        wxTextCtrl* m_textCtrl4;
+        wxButton* m_button17;        //m_button17
+        wxButton* m_button18;        //m_button18
 
-	protected:
-		wxScrolledWindow* m_scrolledWindow2;
-		wxButton* m_button8;        //m_button8
-		wxButton* m_button19;        //m_button19
-		wxStaticText* m_staticText6;
-		wxTextCtrl* m_textCtrl3;
-		wxStaticText* m_staticText7;
-		wxTextCtrl* m_textCtrl4;
-		wxButton* m_button17;        //m_button17
-		wxButton* m_button18;        //m_button18
+    public:
 
-	public:
+        frameEditDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 612,454 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
-		frameEditDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 612,454 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        ~frameEditDeck();
 
-		~frameEditDeck();
+    };
 
-};
+    ///////////////////////////////////////////////////////////////////////////////
+    /// Class frameAddDeck
+    ///////////////////////////////////////////////////////////////////////////////
+    class frameAddDeck : public wxFrame
+    {
+    private:
+    protected:
+        wxScrolledWindow* m_scrolledWindow2;
+        wxButton* m_button8;        //m_button8
+        wxButton* m_button19;        //m_button19
+        wxStaticText* m_staticText3;
+        wxButton* m_button18;        //m_button18
+        wxButton* m_button36;        //m_button36
+        wxButton* m_button17;        //m_button17
 
-///////////////////////////////////////////////////////////////////////////////
-/// Class frameAddDeck
-///////////////////////////////////////////////////////////////////////////////
-class frameAddDeck : public wxFrame
-{
-	private:
-
-	protected:
-		wxScrolledWindow* m_scrolledWindow2;
-		wxButton* m_button8;        //m_button8
-		wxButton* m_button19;        //m_button19
-		wxStaticText* m_staticText3;
-		wxButton* m_button18;        //m_button18
-		wxButton* m_button36;        //m_button36
-		wxButton* m_button17;        //m_button17
-
-	public:
-    int integer;
+    public:
+        int integer;
 
         wxStaticText staticText;
-		frameAddDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 641,473 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        frameAddDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 641,473 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
         void descriptionOfTheDeck(wxCommandEvent &);
         void openStart(wxCommandEvent &);
         void dupa(wxCommandEvent &);
 
-		~frameAddDeck();
+        ~frameAddDeck();
+
+    };
+
 
 };
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 /// Class accessors
 ///////////////////////////////////////////////////////////////////////////////
 class accesors{
+private:
 public:
     static int currentlyChosen;
 };

@@ -4,7 +4,7 @@
 
 #include "main.h"
 
-frameLesson::frameLesson( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
+allFrames::frameLesson::frameLesson( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
@@ -112,6 +112,7 @@ frameLesson::frameLesson( wxWindow* parent, wxWindowID id, const wxString& title
     this->Centre( wxBOTH );
 }
 
-frameLesson::~frameLesson()
+allFrames::frameLesson::~frameLesson()
 {
+    this->Destroy();
 }

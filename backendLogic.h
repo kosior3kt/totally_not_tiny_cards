@@ -2,29 +2,34 @@
 // Created by JK on 03/06/2022.
 //
 
+
+
 #ifndef PJC_NOWE_BACKENDLOGIC_H
 #define PJC_NOWE_BACKENDLOGIC_H
 
 
-#include "main.h"
-#include "dataBase.h"
+#include "parser.h"
 #include <map>
 
 
-class backendLogic {
+class backendLogic: public parser {
 public:
-    static void zrupLogike();
 
-    struct cardsInfo{
-         std::string frontOfTheCard;
-         std::string backOfTheCard;
-         int numberOfTimesGuessed;
-    };
+    backendLogic();
+    std::string returnNameOfDeck(int deckNumber);
+    std::string returnCommentToDeck(int deckNumber);
+    int returnNumberOfCardsInDeck(int deckNumber);
 
-    std::map<std::string, cardsInfo> cards;
+
+    std::string returnFrontOfCard(int, int);
+    std::string returnBackOfCard(int, int);
+    int returnNumberOfTimesBeingGuessed(int, int);
+    parser parser;
 
 
 private:
+    std::vector<Card> fillTheVector(int);
+    std::vector<Deck> fillDeckVector();
 
 
 };
