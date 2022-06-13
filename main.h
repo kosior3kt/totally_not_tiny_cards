@@ -78,8 +78,14 @@ class allFrames : public MyApp
         wxButton* b_sprawdz;
 
     public:
+        void AskUser();
+        void showCard(wxCommandEvent &e);
+        void checkCorrectness(wxCommandEvent &);
+        void showCorrectAnswer(wxCommandEvent &e);
+        void openChoice(wxCommandEvent &);
+        void openChoice();
 
-        frameLesson( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 620,497 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        frameLesson( wxWindow* parent,int number,const wxString& title ,wxWindowID id = wxID_ANY , const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 620,497 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL);
 
         ~frameLesson();
 
@@ -177,4 +183,5 @@ class accesors{
 private:
 public:
     static int currentlyChosen;
+    static std::string currentlyChosenDeckName;
 };

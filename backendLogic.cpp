@@ -63,9 +63,6 @@ int backendLogic::returnNumberOfTimesBeingGuessed(int numberOfTheDeck, int numbe
     return 69;
 }
 
-
-
-
 std::vector<Deck> backendLogic::fillDeckVector() {
     std::vector<Deck> tempDeckVector;
     for(int i=0; i<parser.returnNumberOfDecks(); i++){

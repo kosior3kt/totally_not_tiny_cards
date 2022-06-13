@@ -7,6 +7,7 @@
 
 static wxBoxSizer* bSizer21;
 int accesors::currentlyChosen=0;
+std::string accesors::currentlyChosenDeckName;
 
 
 allFrames::frameChooseDeck::frameChooseDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
@@ -81,12 +82,11 @@ allFrames::frameChooseDeck::frameChooseDeck( wxWindow* parent, wxWindowID id, co
 }
 
 allFrames::frameChooseDeck::~frameChooseDeck()
-{
-}
+= default;
 
 void allFrames::frameChooseDeck::openStart(wxCommandEvent &) {
 
-    auto *frame_add = new frameStart(NULL);
+    auto *frame_add = new frameStart(nullptr);
     frame_add->Show(true);
     this->Show(false);
 }
@@ -94,24 +94,17 @@ void allFrames::frameChooseDeck::openStart(wxCommandEvent &) {
 
 void allFrames::frameChooseDeck::descriptionOfTheDeck(wxCommandEvent &e) {
 
-
-//    std::cout<<"69696969696969";
-//
-//    std::cout<<"1";
-//    std::string temp = backendLogic::returnCommentToDeck(e.GetId());
-//    std::cout<<"2";
-//    m_staticText3->SetLabel(temp);
-//    m_staticText3->Wrap( -1 );
-//    accesors::currentlyChosen=e.GetId();
-//
-//    std::string name = backendLogic::returnNameOfDeck(e.GetId());
-//    std::string comment = backendLogic::returnCommentToDeck(e.GetId());
-//    std::cout<<"\n\n"<<accesors::currentlyChosen<<"     "<<name<<"    "<<comment<<"     \n\n";  //debugg
-//    delete tempDataBaseParser;
+    static std::unique_ptr<backendLogic> logic = std::make_unique<backendLogic>();
+    m_staticText3->SetLabel(logic->returnCommentToDeck(e.GetId()));
+    m_staticText3->Wrap( -1 );
+    accesors::currentlyChosen=e.GetId();
+    accesors::currentlyChosenDeckName=logic->returnNameOfDeck(accesors::currentlyChosen);
+    std::cout<<accesors::currentlyChosen;
 }
 
 void allFrames::frameChooseDeck::openLesson(wxCommandEvent &) {
-    auto *frame_add = new frameLesson(NULL);
+
+    auto *frame_add = new frameLesson(nullptr, accesors::currentlyChosen, accesors::currentlyChosenDeckName);
     frame_add->Show(true);
     this->Show(false);
 }

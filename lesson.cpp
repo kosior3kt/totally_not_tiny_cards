@@ -3,9 +3,24 @@
 //
 
 #include "main.h"
+#include "lessonLogic.h"
 
-allFrames::frameLesson::frameLesson( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
+
+int num;
+int* tempPtr = &num;
+
+std::unique_ptr<lessonLogic> logic;
+wxBoxSizer* bSizer7;
+
+allFrames::frameLesson::frameLesson( wxWindow* parent, int number, const wxString& title, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
+
+//    num=number;
+//    *tempPtr = number;
+//
+    logic = std::make_unique<lessonLogic>(number);
+
+
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
     wxBoxSizer* bSizer2;
@@ -26,10 +41,11 @@ allFrames::frameLesson::frameLesson( wxWindow* parent, wxWindowID id, const wxSt
 
     bSizer4->Add( bSizer6, 1, wxEXPAND, 5 );
 
-    wxBoxSizer* bSizer7;
+
     bSizer7 = new wxBoxSizer( wxHORIZONTAL );
 
-    m_staticText1 = new wxStaticText( m_scrolledWindow1, wxID_ANY, wxT("One Side Of A Given Card"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
+    m_staticText1 = new wxStaticText( m_scrolledWindow1, wxID_ANY, wxT("One Side Of A Given Card"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL | wxST_NO_AUTORESIZE );
+    m_staticText1->SetLabel(logic->giveCard());
     m_staticText1->Wrap( -1 );
     bSizer7->Add( m_staticText1, 1, wxALIGN_CENTER_VERTICAL, 5 );
 
@@ -39,7 +55,7 @@ allFrames::frameLesson::frameLesson( wxWindow* parent, wxWindowID id, const wxSt
     wxBoxSizer* bSizer28;
     bSizer28 = new wxBoxSizer( wxHORIZONTAL );
 
-    m_staticText8 = new wxStaticText( m_scrolledWindow1, wxID_ANY, wxT("???"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
+    m_staticText8 = new wxStaticText( m_scrolledWindow1, wxID_ANY, wxT("???"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL | wxST_NO_AUTORESIZE );
     m_staticText8->Wrap( -1 );
     bSizer28->Add( m_staticText8, 1, wxALL, 5 );
 
@@ -49,7 +65,7 @@ allFrames::frameLesson::frameLesson( wxWindow* parent, wxWindowID id, const wxSt
     wxBoxSizer* bSizer8;
     bSizer8 = new wxBoxSizer( wxHORIZONTAL );
 
-    m_textCtrl1 = new wxTextCtrl( m_scrolledWindow1, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_CENTRE );
+    m_textCtrl1 = new wxTextCtrl( m_scrolledWindow1, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_CENTRE);
     bSizer8->Add( m_textCtrl1, 1, wxALIGN_CENTER_VERTICAL, 5 );
 
 
@@ -110,9 +126,69 @@ allFrames::frameLesson::frameLesson( wxWindow* parent, wxWindowID id, const wxSt
     this->Layout();
 
     this->Centre( wxBOTH );
+
+    b_sprawdz->Bind(wxEVT_BUTTON, &allFrames::frameLesson::checkCorrectness, this);
+    m_button8->Bind(wxEVT_BUTTON, &allFrames::frameLesson::showCard, this);
+    m_button7->Bind(wxEVT_BUTTON, &allFrames::frameLesson::showCorrectAnswer, this);
 }
 
-allFrames::frameLesson::~frameLesson()
-{
+allFrames::frameLesson::~frameLesson() {
     this->Destroy();
 }
+
+void allFrames::frameLesson::AskUser(){
+    wxMessageDialog dlg(this, "gratuacje!");
+    dlg.ShowModal();
+}
+
+void allFrames::frameLesson::showCard(wxCommandEvent &e) {
+
+    m_staticText1->SetLabel(logic->giveCard());
+    m_staticText1->Wrap(-1);
+    m_staticText8->SetLabel("???");
+    m_textCtrl1->SetValue("");
+    if(logic->isEmpty()){
+        this->AskUser();
+        this->openChoice();
+        this->Show(false);
+    }
+}
+
+void allFrames::frameLesson::checkCorrectness(wxCommandEvent &e) {
+
+     wxString str = m_textCtrl1->GetValue();
+
+    m_staticText8->SetLabel(logic->current.back);
+    std::string temp = const_cast<const char*>((const char*)str.mb_str());
+    if(logic->current.back==temp){
+        logic->guessedRight();
+    }
+    else{
+        logic->guessedWrong();
+    }
+
+
+
+//    m_staticText1->Wrap( -1);
+
+}
+
+void allFrames::frameLesson::openChoice(wxCommandEvent &e) {
+    frameChooseDeck *frame_add = new frameChooseDeck(NULL);
+    frame_add->Show(true);
+    this->Show(false);
+}
+
+
+
+void allFrames::frameLesson::showCorrectAnswer(wxCommandEvent &e) {
+    m_staticText8->SetLabel(logic->current.back);
+
+}
+
+void allFrames::frameLesson::openChoice() {
+    frameChooseDeck *frame_add = new frameChooseDeck(NULL);
+    frame_add->Show(true);
+    this->Show(false);
+}
+

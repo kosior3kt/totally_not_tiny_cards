@@ -28,10 +28,11 @@ public:
 
 
 private:
-    std::vector<Card> fillTheVector(int);
     std::vector<Deck> fillDeckVector();
 
 
+protected:
+    std::vector<Card> fillTheVector(int);
 };
 
 
