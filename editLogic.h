@@ -11,8 +11,7 @@
 class editLogic: backendLogic {
 
 public:
-    void deleteChosenDeck(int index);
-    void createDeck(std::string name, std::string comment);
+
 
 };
 

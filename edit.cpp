@@ -61,10 +61,15 @@ allFrames::frameEditDeck::frameEditDeck( wxWindow* parent, wxWindowID id, const 
     bSizer20 = new wxBoxSizer( wxHORIZONTAL );
 
     m_button17 = new wxButton( this, wxID_ANY, wxT("DELETE"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_button17->SetForegroundColour(wxColour(150,0,0));
     bSizer20->Add( m_button17, 1, wxEXPAND|wxALL, 5 );
 
     m_button18 = new wxButton( this, wxID_ANY, wxT("SAVE AND QUIT"), wxDefaultPosition, wxDefaultSize, 0 );
     bSizer20->Add( m_button18, 1, wxEXPAND|wxALL, 5 );
+
+    b_cancel = new wxButton( this, wxID_ANY, wxT("CANCEL"), wxDefaultPosition, wxDefaultSize, 0 );
+    bSizer20->Add( b_cancel, 1, wxEXPAND|wxALL, 5 );
+
 
 
     bSizer14->Add( bSizer20, 1, wxEXPAND|wxALL, 5 );

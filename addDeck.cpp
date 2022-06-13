@@ -5,6 +5,7 @@
 #include "main.h"
 
 
+int allFrames::frameAddDeck::currentlyChosen=0;
 
 allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
@@ -18,10 +19,6 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
     m_scrolledWindow2->SetScrollRate( 5, 5 );
     wxBoxSizer* bSizer15;
     bSizer15 = new wxBoxSizer( wxVERTICAL );
-
-
-
-
 
 
         auto dodaj = [&](int i) {
@@ -82,7 +79,7 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
 
     m_button17->Bind(wxEVT_BUTTON, &frameAddDeck::openStart, this);
     m_button18->Bind(wxEVT_BUTTON, &frameAddDeck::descriptionOfTheDeck, this);
-    m_button36->Bind(wxEVT_BUTTON, &frameAddDeck::dupa, this);
+    m_button36->Bind(wxEVT_BUTTON, &frameAddDeck::deleteChosenDeck, this);
     b_addDeck->Bind(wxEVT_BUTTON,&frameAddDeck::openEdit, this);
 }
 
@@ -101,6 +98,7 @@ void allFrames::frameAddDeck::openStart(wxCommandEvent &) {
 void allFrames::frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
     backendLogic logic;
     std::string temp = logic.returnCommentToDeck(e.GetId());
+    currentlyChosen=e.GetId();
     m_staticText3->SetLabel(temp);
     m_staticText3->Wrap( -1 );
 }
@@ -114,7 +112,35 @@ void allFrames::frameAddDeck::dupa(wxCommandEvent &e) {
 }
 
 void allFrames::frameAddDeck::openEdit(wxCommandEvent &e) {
-    auto *frame_add = new frameEditDeck(NULL);
+    auto *frame_add = new frameEditDeck(nullptr);
     frame_add->Show(true);
+    this->Show(false);
+}
+
+void allFrames::frameAddDeck::deleteChosenDeck(wxCommandEvent &e) {
+    int answer = wxMessageBox("Are You sure You want to delete this deck? \n It will be permamently lost!", "Confirm Deletion",
+                              wxYES_NO | wxNO_DEFAULT, this);
+    if(answer == wxYES){
+        dataBase db;
+        backendLogic logic;
+        std::string tempQry="DROP TABLE IF EXISTS ";
+        std::string tempDeckName=logic.returnNameOfDeck(currentlyChosen);
+        std::string tempQry2=";";
+        tempQry=tempQry+tempDeckName+tempQry2;
+        const char * qry = tempQry.c_str();
+        db.mysql_execute_querry(qry);
+        this->refresh();
+        this->Refresh();        //still have to figure out how to make this shit refresh real time…, not anymore hehe
+
+    }
+}
+
+void allFrames::frameAddDeck::createDeck(std::string name) {
+
+}
+
+void allFrames::frameAddDeck::refresh() {
+    frameAddDeck *frame_choice = new frameAddDeck(NULL);
+    frame_choice->Show(true);
     this->Show(false);
 }

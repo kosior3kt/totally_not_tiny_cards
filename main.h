@@ -131,6 +131,7 @@ class allFrames : public MyApp
         wxScrolledWindow* m_scrolledWindow2;
         wxButton* m_button8;        //m_button8
         wxButton* m_button19;        //m_button19
+        wxButton* b_cancel;        //m_button17
         wxStaticText* m_staticText6;
         wxTextCtrl* m_textCtrl3;
         wxStaticText* m_staticText7;
@@ -160,11 +161,14 @@ class allFrames : public MyApp
         wxButton* m_button36;        //m_button36
         wxButton* m_button17;        //m_button17
 
+
     public:
-        int integer;
+        static int currentlyChosen;
+        void deleteChosenDeck(wxCommandEvent &e);
+        void createDeck(std::string name);
         void openEdit(wxCommandEvent &e);
-        void deleteDeck();
         wxStaticText staticText;
+        void refresh();
         frameAddDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 641,473 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
         void descriptionOfTheDeck(wxCommandEvent &);
         void openStart(wxCommandEvent &);
