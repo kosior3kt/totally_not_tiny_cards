@@ -21,11 +21,7 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
 
 
 
-//    m_button8 = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Dummy deck"), wxDefaultPosition, wxDefaultSize, 0 );
-//    bSizer15->Add( m_button8, 0, wxEXPAND|wxALL, 5 );
-//
-//    m_button19 = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Add Deck"), wxDefaultPosition, wxDefaultSize, 0 );
-//    bSizer15->Add( m_button19, 0, wxEXPAND|wxALL, 5 );
+
 
 
         auto dodaj = [&](int i) {
@@ -38,6 +34,10 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
             dodaj(i);
         }
 
+        b_addDeck = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Add Deck"), wxDefaultPosition, wxDefaultSize, 0 );
+        b_addDeck->SetBackgroundColour(wxColor(0,150,0));
+        bSizer15->Add( b_addDeck, 0, wxEXPAND|wxALL, 5);
+
     m_scrolledWindow2->SetSizer( bSizer15 );
     m_scrolledWindow2->Layout();
     bSizer15->Fit( m_scrolledWindow2 );
@@ -49,7 +49,7 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
     wxBoxSizer* bSizer21;
     bSizer21 = new wxBoxSizer( wxVERTICAL );
 
-    m_staticText3 = new wxStaticText( this, wxID_ANY, wxT("There will be description of a chosen deck`"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
+    m_staticText3 = new wxStaticText( this, wxID_ANY, wxT("There will be description of a chosen deck`"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL | wxST_NO_AUTORESIZE);
     m_staticText3->Wrap( -1 );
     bSizer21->Add( m_staticText3, 1, wxEXPAND|wxALL, 5 );
 
@@ -83,6 +83,7 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
     m_button17->Bind(wxEVT_BUTTON, &frameAddDeck::openStart, this);
     m_button18->Bind(wxEVT_BUTTON, &frameAddDeck::descriptionOfTheDeck, this);
     m_button36->Bind(wxEVT_BUTTON, &frameAddDeck::dupa, this);
+    b_addDeck->Bind(wxEVT_BUTTON,&frameAddDeck::openEdit, this);
 }
 
 allFrames::frameAddDeck::~frameAddDeck()
@@ -105,22 +106,15 @@ void allFrames::frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
 }
 
 void allFrames::frameAddDeck::dupa(wxCommandEvent &e) {
-//    dataBaseParser *tempDataBaseParser = new dataBaseParser();
-//    std::cout<<tempDataBaseParser->returnBackOfCard(1,1)<<"\n";
-//    tempDataBaseParser->makeItAllWork();
-//    dataBaseParser *tempDataBaseParser2 = new dataBaseParser();
-//    std::cout<<tempDataBaseParser2->returnFrontOfCard(1,1)<<"\n";
-//    dataBaseParser *tempDataBaseParser3 = new dataBaseParser();
-//    std::cout<<tempDataBaseParser3->returnNumberOfTimesBeingGuessed(1,1)<<"\n";
-//    std::cout<<"\n\nwypelniam deck kartami!!\n\n";
-//    tempDataBaseParser4->fillTheVector(1);
 
     backendLogic logic;
     std::cout << logic.returnBackOfCard(1, 1);
     std::cout<<"\n";
 
-//    delete tempDataBaseParser;
-//    delete tempDataBaseParser2;
-//    delete tempDataBaseParser3;
-//    delete tempDataBaseParser4;
+}
+
+void allFrames::frameAddDeck::openEdit(wxCommandEvent &e) {
+    auto *frame_add = new frameEditDeck(NULL);
+    frame_add->Show(true);
+    this->Show(false);
 }

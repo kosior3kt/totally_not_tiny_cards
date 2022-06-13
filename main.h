@@ -78,9 +78,12 @@ class allFrames : public MyApp
         wxButton* b_sprawdz;
 
     public:
+        void keyPressed(wxKeyEvent &e);
         void AskUser();
         void showCard(wxCommandEvent &e);
+        void showCard();
         void checkCorrectness(wxCommandEvent &);
+        void checkCorrectness();
         void showCorrectAnswer(wxCommandEvent &e);
         void openChoice(wxCommandEvent &);
         void openChoice();
@@ -151,8 +154,7 @@ class allFrames : public MyApp
     private:
     protected:
         wxScrolledWindow* m_scrolledWindow2;
-        wxButton* m_button8;        //m_button8
-        wxButton* m_button19;        //m_button19
+        wxButton* b_addDeck;        //m_button8
         wxStaticText* m_staticText3;
         wxButton* m_button18;        //m_button18
         wxButton* m_button36;        //m_button36
@@ -160,7 +162,8 @@ class allFrames : public MyApp
 
     public:
         int integer;
-
+        void openEdit(wxCommandEvent &e);
+        void deleteDeck();
         wxStaticText staticText;
         frameAddDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 641,473 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
         void descriptionOfTheDeck(wxCommandEvent &);

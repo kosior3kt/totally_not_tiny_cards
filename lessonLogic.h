@@ -15,19 +15,21 @@ std::vector<Card> makeTrimmedVector();
 struct localCard{
     std::string front;
     std::string back;
+
 };
+    bool passedSuccesfully=false;
 std::vector<localCard> vectorForWork;
 void fillLocalVector();
 
 public:
+    void setPassedFlagToTrue();
+    int returnSizeOfVector();
     void guessedRight();
     void guessedWrong();
     bool isEmpty();
 explicit lessonLogic(int num);
 std::string giveCard();
 localCard current;
-
-
 };
 
 

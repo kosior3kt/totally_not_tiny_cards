@@ -61,6 +61,14 @@ bool lessonLogic::isEmpty() {
     return vectorForWork.empty();
 }
 
+int lessonLogic::returnSizeOfVector() {
+    return this->vectorForWork.size();
+}
+
+void lessonLogic::setPassedFlagToTrue() {
+    this->passedSuccesfully=true;
+}
+
 
 
 

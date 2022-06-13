@@ -36,6 +36,7 @@ allFrames::frameChooseDeck::frameChooseDeck( wxWindow* parent, wxWindowID id, co
         dodaj(i);
     }
 
+
     m_scrolledWindow2->SetSizer( bSizer15 );
     m_scrolledWindow2->Layout();
     bSizer15->Fit( m_scrolledWindow2 );
@@ -47,7 +48,7 @@ allFrames::frameChooseDeck::frameChooseDeck( wxWindow* parent, wxWindowID id, co
 
     bSizer21 = new wxBoxSizer( wxVERTICAL );
 
-    m_staticText3 = new wxStaticText( this, wxID_ANY, wxT("This is a dummy deck"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
+    m_staticText3 = new wxStaticText( this, wxID_ANY, wxT("This is a dummy deck"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL | wxST_NO_AUTORESIZE);
     m_staticText3->Wrap( -1 );
     m_staticText3->SetLabel("…");
     bSizer21->Add( m_staticText3, 1, wxEXPAND, 5 );

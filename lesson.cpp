@@ -6,11 +6,10 @@
 #include "lessonLogic.h"
 
 
-int num;
-int* tempPtr = &num;
-
+int increment;
 std::unique_ptr<lessonLogic> logic;
 wxBoxSizer* bSizer7;
+bool checked=false;
 
 allFrames::frameLesson::frameLesson( wxWindow* parent, int number, const wxString& title, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
@@ -20,8 +19,11 @@ allFrames::frameLesson::frameLesson( wxWindow* parent, int number, const wxStrin
 //
     logic = std::make_unique<lessonLogic>(number);
 
-
+    m_gauge1 = new wxGauge(this, wxID_ANY, 100);
+    m_gauge1->SetValue(0);
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
+
+    increment = m_gauge1->GetRange()/logic->returnSizeOfVector();
 
     wxBoxSizer* bSizer2;
     bSizer2 = new wxBoxSizer( wxVERTICAL );
@@ -130,6 +132,7 @@ allFrames::frameLesson::frameLesson( wxWindow* parent, int number, const wxStrin
     b_sprawdz->Bind(wxEVT_BUTTON, &allFrames::frameLesson::checkCorrectness, this);
     m_button8->Bind(wxEVT_BUTTON, &allFrames::frameLesson::showCard, this);
     m_button7->Bind(wxEVT_BUTTON, &allFrames::frameLesson::showCorrectAnswer, this);
+    this->Bind(wxEVT_CHAR_HOOK, &allFrames::frameLesson::keyPressed, this);
 }
 
 allFrames::frameLesson::~frameLesson() {
@@ -137,40 +140,46 @@ allFrames::frameLesson::~frameLesson() {
 }
 
 void allFrames::frameLesson::AskUser(){
+    logic->setPassedFlagToTrue();
     wxMessageDialog dlg(this, "gratuacje!");
     dlg.ShowModal();
 }
 
 void allFrames::frameLesson::showCard(wxCommandEvent &e) {
-
-    m_staticText1->SetLabel(logic->giveCard());
-    m_staticText1->Wrap(-1);
-    m_staticText8->SetLabel("???");
-    m_textCtrl1->SetValue("");
-    if(logic->isEmpty()){
-        this->AskUser();
-        this->openChoice();
-        this->Show(false);
+    if(checked) {
+        m_staticText1->SetLabel(logic->giveCard());
+        m_staticText1->Wrap(-1);
+        m_staticText8->SetForegroundColour(wxColour(*wxWHITE));
+        m_staticText8->SetLabel("???");
+        m_textCtrl1->SetValue("");
+        if (logic->isEmpty()) {
+            this->AskUser();
+            this->openChoice();
+            this->Show(false);
+        }
+        checked = false;
     }
 }
 
 void allFrames::frameLesson::checkCorrectness(wxCommandEvent &e) {
 
-     wxString str = m_textCtrl1->GetValue();
+    if(!checked) {
+        wxString str = m_textCtrl1->GetValue();
 
-    m_staticText8->SetLabel(logic->current.back);
-    std::string temp = const_cast<const char*>((const char*)str.mb_str());
-    if(logic->current.back==temp){
-        logic->guessedRight();
+        m_staticText8->SetLabel(logic->current.back);
+        std::string temp = const_cast<const char *>((const char *) str.mb_str());
+        if (logic->current.back == temp) {
+            logic->guessedRight();
+            m_staticText8->SetForegroundColour(wxColor(*wxGREEN));
+            int temp = m_gauge1->GetValue();
+            temp += increment;
+            m_gauge1->SetValue(temp);
+        } else {
+            logic->guessedWrong();
+            m_staticText8->SetForegroundColour(wxColor(*wxRED));
+        }
+        checked = true;
     }
-    else{
-        logic->guessedWrong();
-    }
-
-
-
-//    m_staticText1->Wrap( -1);
-
 }
 
 void allFrames::frameLesson::openChoice(wxCommandEvent &e) {
@@ -182,7 +191,12 @@ void allFrames::frameLesson::openChoice(wxCommandEvent &e) {
 
 
 void allFrames::frameLesson::showCorrectAnswer(wxCommandEvent &e) {
-    m_staticText8->SetLabel(logic->current.back);
+
+    int answer = wxMessageBox("Are You sure you want to stop lesson? \n Your progress will be lost!", "Confirm",
+                              wxYES_NO | wxNO_DEFAULT, this);
+    if(answer == wxYES){
+        allFrames::frameLesson::openChoice();
+    }
 
 }
 
@@ -190,5 +204,58 @@ void allFrames::frameLesson::openChoice() {
     frameChooseDeck *frame_add = new frameChooseDeck(NULL);
     frame_add->Show(true);
     this->Show(false);
+}
+
+void allFrames::frameLesson::keyPressed(wxKeyEvent &e) {
+    std::cout<<e.GetKeyCode()<<"\n";
+    if(e.GetKeyCode()==13){
+        if(checked){
+            this->showCard();
+        }
+        else{
+            if(!m_textCtrl1->GetValue().empty()){
+                this->checkCorrectness();
+            }
+        }
+
+    }
+    else
+        e.Skip();
+}
+
+void allFrames::frameLesson::showCard() {
+    if(checked) {
+        m_staticText1->SetLabel(logic->giveCard());
+        m_staticText1->Wrap(-1);
+        m_staticText8->SetForegroundColour(wxColour(*wxWHITE));
+        m_staticText8->SetLabel("???");
+        m_textCtrl1->SetValue("");
+        if (logic->isEmpty()) {
+            this->AskUser();
+            this->openChoice();
+            this->Show(false);
+        }
+        checked = false;
+    }
+}
+
+void allFrames::frameLesson::checkCorrectness() {
+    if(!checked) {
+        wxString str = m_textCtrl1->GetValue();
+
+        m_staticText8->SetLabel(logic->current.back);
+        std::string temp = const_cast<const char *>((const char *) str.mb_str());
+        if (logic->current.back == temp) {
+            logic->guessedRight();
+            m_staticText8->SetForegroundColour(wxColor(*wxGREEN));
+            int temp = m_gauge1->GetValue();
+            temp += increment;
+            m_gauge1->SetValue(temp);
+        } else {
+            logic->guessedWrong();
+            m_staticText8->SetForegroundColour(wxColor(*wxRED));
+        }
+        checked = true;
+    }
 }
 
