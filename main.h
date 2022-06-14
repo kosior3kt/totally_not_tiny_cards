@@ -133,15 +133,22 @@ class allFrames : public MyApp
         wxButton* m_button19;        //m_button19
         wxButton* b_cancel;        //m_button17
         wxStaticText* m_staticText6;
+        wxStaticText* m_staticText8;
+        wxStaticText* m_staticText9;
         wxTextCtrl* m_textCtrl3;
+        wxTextCtrl* m_textCtrl5;
+        wxTextCtrl* m_textCtrl6;
         wxStaticText* m_staticText7;
         wxTextCtrl* m_textCtrl4;
         wxButton* m_button17;        //m_button17
         wxButton* m_button18;        //m_button18
 
     public:
+        void openAdd(wxCommandEvent &e);
+        void openAddWithoutSaving(wxCommandEvent &e);
 
         frameEditDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 612,454 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        frameEditDeck( wxWindow* parent, int number, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 612,454 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
         ~frameEditDeck();
 
@@ -165,7 +172,7 @@ class allFrames : public MyApp
     public:
         static int currentlyChosen;
         void deleteChosenDeck(wxCommandEvent &e);
-        void createDeck(std::string name);
+        void openCreateDeck(wxCommandEvent &e);
         void openEdit(wxCommandEvent &e);
         wxStaticText staticText;
         void refresh();

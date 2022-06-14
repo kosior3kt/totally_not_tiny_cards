@@ -20,7 +20,7 @@ include(${wxWidgets_USE_FILE})
 
 add_executable(pjc_nowe
         main.cpp
-        main.h chooseDeck.cpp addDeck.cpp lesson.cpp edit.cpp start.cpp backendLogic.cpp backendLogic.h Card.cpp Card.h Deck.cpp Deck.h dataBase.cpp dataBase.h parser.cpp parser.h lessonLogic.cpp lessonLogic.h editLogic.cpp editLogic.h)
+        main.h chooseDeck.cpp addDeck.cpp lesson.cpp edit.cpp start.cpp backendLogic.cpp backendLogic.h Card.cpp Card.h Deck.cpp Deck.h dataBase.cpp dataBase.h parser.cpp parser.h lessonLogic.cpp lessonLogic.h editLogic.cpp editLogic.h addLogic.cpp addLogic.h)
 
 
 target_link_libraries(pjc_nowe ${wxWidgets_LIBRARIES})

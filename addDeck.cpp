@@ -5,7 +5,7 @@
 #include "main.h"
 
 
-int allFrames::frameAddDeck::currentlyChosen=0;
+int allFrames::frameAddDeck::currentlyChosen=-1;
 
 allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
@@ -78,9 +78,10 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
     this->Centre( wxBOTH );
 
     m_button17->Bind(wxEVT_BUTTON, &frameAddDeck::openStart, this);
-    m_button18->Bind(wxEVT_BUTTON, &frameAddDeck::descriptionOfTheDeck, this);
+    m_button18->Bind(wxEVT_BUTTON, &frameAddDeck::openEdit, this);
     m_button36->Bind(wxEVT_BUTTON, &frameAddDeck::deleteChosenDeck, this);
-    b_addDeck->Bind(wxEVT_BUTTON,&frameAddDeck::openEdit, this);
+    b_addDeck->Bind(wxEVT_BUTTON,&frameAddDeck::openCreateDeck, this);
+
 }
 
 allFrames::frameAddDeck::~frameAddDeck()
@@ -112,6 +113,15 @@ void allFrames::frameAddDeck::dupa(wxCommandEvent &e) {
 }
 
 void allFrames::frameAddDeck::openEdit(wxCommandEvent &e) {
+
+    if(currentlyChosen>=0){
+    auto *frame_add = new frameEditDeck(nullptr, currentlyChosen, wxID_ANY);
+    frame_add->Show(true);
+    this->Show(false);
+    }
+}
+
+void allFrames::frameAddDeck::openCreateDeck(wxCommandEvent &e) {
     auto *frame_add = new frameEditDeck(nullptr);
     frame_add->Show(true);
     this->Show(false);
@@ -135,12 +145,11 @@ void allFrames::frameAddDeck::deleteChosenDeck(wxCommandEvent &e) {
     }
 }
 
-void allFrames::frameAddDeck::createDeck(std::string name) {
-
-}
 
 void allFrames::frameAddDeck::refresh() {
     frameAddDeck *frame_choice = new frameAddDeck(NULL);
     frame_choice->Show(true);
     this->Show(false);
 }
+
+

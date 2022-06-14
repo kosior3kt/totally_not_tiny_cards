@@ -36,7 +36,7 @@ int parser::returnNumberOfCardsInDeck(int number) {
 
 std::string parser::returnNameOfDeck(int number) {
     std::unique_ptr<dataBase> db = std::make_unique<dataBase>();
-    const char * qry = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'mysql_tuts';";
+    const char * qry = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'mysql_tuts' order by create_time;";
     db->res = db->mysql_execute_querry(qry);
 
     int i=0;

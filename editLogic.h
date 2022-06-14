@@ -9,9 +9,16 @@
 #include "backendLogic.h"
 
 class editLogic: backendLogic {
-
+    int deckIndex;
+    dataBase db;
+    backendLogic logic;
 public:
-
+    void deleteCard(int currentlySelectedCard);
+    void insertCard(std::string front, std::string back);
+    void clearBuffer();
+    void setComment(std::string comment);
+    void createDeck();
+    void renameDeck(std::string name);
 
 };
 
