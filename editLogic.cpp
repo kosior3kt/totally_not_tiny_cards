@@ -4,8 +4,9 @@
 
 #include "editLogic.h"
 
-void editLogic::deleteCard(int currentlySelectedCard) {
+void editLogic::deleteCard(int currentlySelectedCard, int deck) {
 
+    this->deckIndex=deck;
     std::string CardsID = std::to_string(currentlySelectedCard);
     std::string tempQry="DELETE FROM ";
     std::string tempDeckName=logic.returnNameOfDeck(deckIndex);   //albo tak, albo trzeba tu zrobic -1, ale to w sumie wyjdzie w debuggu =3
@@ -18,8 +19,9 @@ void editLogic::deleteCard(int currentlySelectedCard) {
     db.mysql_execute_querry(qry);
 }
 
-void editLogic::insertCard(std::string front, std::string back) {
+void editLogic::insertCard(std::string front, std::string back, int number) {
 
+    this->deckIndex=number;
     std::string tempDeckName=logic.returnNameOfDeck(deckIndex);   //albo tak, albo trzeba tu zrobic -1, ale to w sumie wyjdzie w debuggu =3
     std::string tempQry="INSERT INTO ";
     std::string tempQry2=" VALUE(";
@@ -39,14 +41,15 @@ void editLogic::clearBuffer() {
 ///nie interesuj sie kurwa, jak bede chcial, to zaimplementuje, a jak nie bedzie mi sie chcialo, to nie
 }
 
-void editLogic::setComment(std::string comment) {
+void editLogic::setComment(std::string comment, int number) {
 
+    deckIndex=number;
     std::string tempDeckName=logic.returnNameOfDeck(deckIndex);   //albo tak, albo trzeba tu zrobic -1, ale to w sumie wyjdzie w debuggu =3
     std::string tempQry="ALTER TABLE ";
     std::string tempQry2=" COMMENT='";
     std::string tempQry3="';";
     tempQry=tempQry+tempDeckName+tempQry2+comment+tempQry3;
-
+    std::cout<<tempQry<<"\n";
     const char * qry = tempQry.c_str();
     db.mysql_execute_querry(qry);
 }
@@ -57,8 +60,9 @@ void editLogic::createDeck() {
     deckIndex = logic.returnNumberOfDecks()-1;
 }
 
-void editLogic::renameDeck(std::string name) {
+void editLogic::renameDeck(std::string name, int number) {
 
+    deckIndex = number;
     std::string tempDeckName=logic.returnNameOfDeck(deckIndex);   //albo tak, albo trzeba tu zrobic -1, ale to w sumie wyjdzie w debuggu =3
     std::string tempQry="ALTER TABLE ";
     std::string tempQry2=" RENAME TO ";
@@ -66,5 +70,33 @@ void editLogic::renameDeck(std::string name) {
     tempQry=tempQry+tempDeckName+tempQry2+name+tempQry3;
 
     const char * qry = tempQry.c_str();
+    std::cout<<qry<<"\n";
     db.mysql_execute_querry(qry);
+
+}
+
+bool editLogic::isDeckEmpty(int deckNum) {
+    dataBase db;
+    std::string tempDeck = logic.returnNameOfDeck(deckNum);
+    std::cout<<"\n"<<deckNum<<"\n";
+    std::string tempQry = "SELECT EXISTS (SELECT 1 FROM ";
+    std::string tempQry2 = ");";
+    tempQry=tempQry+tempDeck+tempQry2;
+    std::cout<<"\n"<<tempQry<<"\n";
+    const char* qry = tempQry.c_str();
+    bool ans = db.mysql_execute_querry(qry);
+
+    return ans;
+}
+
+void editLogic::changeCard(std::string front, std::string back, int numberOfDeck, int numberOfCard) {
+
+}
+
+bool editLogic::containsWhiteSpaces(std::string name) {
+    for(auto x: name){
+        if(isspace(x))
+            return true;
+    }
+    return false;
 }

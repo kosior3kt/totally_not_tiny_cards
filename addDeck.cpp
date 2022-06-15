@@ -3,12 +3,14 @@
 //
 
 #include "main.h"
+#include "addLogic.h"
 
 
 int allFrames::frameAddDeck::currentlyChosen=-1;
 
 allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
+
     static backendLogic logic;
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
@@ -131,14 +133,8 @@ void allFrames::frameAddDeck::deleteChosenDeck(wxCommandEvent &e) {
     int answer = wxMessageBox("Are You sure You want to delete this deck? \n It will be permamently lost!", "Confirm Deletion",
                               wxYES_NO | wxNO_DEFAULT, this);
     if(answer == wxYES){
-        dataBase db;
-        backendLogic logic;
-        std::string tempQry="DROP TABLE IF EXISTS ";
-        std::string tempDeckName=logic.returnNameOfDeck(currentlyChosen);
-        std::string tempQry2=";";
-        tempQry=tempQry+tempDeckName+tempQry2;
-        const char * qry = tempQry.c_str();
-        db.mysql_execute_querry(qry);
+        addLogic logic;
+        logic.deleteDeck(currentlyChosen);
         this->refresh();
         this->Refresh();        //still have to figure out how to make this shit refresh real time…, not anymore hehe
 

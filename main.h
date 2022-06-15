@@ -142,8 +142,20 @@ class allFrames : public MyApp
         wxTextCtrl* m_textCtrl4;
         wxButton* m_button17;        //m_button17
         wxButton* m_button18;        //m_button18
+        wxButton* b_dodaj;
+        wxButton* b_zmien_opis;
 
     public:
+
+        void deleteCard(wxCommandEvent &e);
+        void addCard(wxCommandEvent &e);
+        void updateCurrentlyChosen(wxCommandEvent &e);
+        void setCurrentChosenToAddMode(wxCommandEvent &e);
+        void refresh();
+        void createDeck();
+        void renameDeck();
+        void addCommentToDeck();
+        void changeDeckNameAndComment(wxCommandEvent &e);
         void openAdd(wxCommandEvent &e);
         void openAddWithoutSaving(wxCommandEvent &e);
 

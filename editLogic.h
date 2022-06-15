@@ -6,19 +6,22 @@
 #define PJC_NOWE_EDITLOGIC_H
 
 
-#include "backendLogic.h"
+#include "addLogic.h"
 
-class editLogic: backendLogic {
+class editLogic: public addLogic{
     int deckIndex;
     dataBase db;
     backendLogic logic;
 public:
-    void deleteCard(int currentlySelectedCard);
-    void insertCard(std::string front, std::string back);
+    bool isDeckEmpty(int deckNum);
+    void deleteCard(int currentlySelectedCard, int deck);
+    void insertCard(std::string front, std::string back, int number);
+    void changeCard(std::string front, std::string back, int numberOfDeck, int numberOfCard);
     void clearBuffer();
-    void setComment(std::string comment);
+    bool containsWhiteSpaces(std::string nameAsWell);
+    void setComment(std::string comment, int name);
     void createDeck();
-    void renameDeck(std::string name);
+    void renameDeck(std::string name, int number);
 
 };
 
