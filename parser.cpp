@@ -36,9 +36,8 @@ int parser::returnNumberOfCardsInDeck(int number) {
 
 std::string parser::returnNameOfDeck(int number) {
     std::unique_ptr<dataBase> db = std::make_unique<dataBase>();
-    const char * qry = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'mysql_tuts';";
+    const char * qry = "SELECT table_name FROM information_schema.tables WHERE table_schema = 'mysql_tuts' order by create_time;";
     db->res = db->mysql_execute_querry(qry);
-
     int i=0;
     while((db->row = mysql_fetch_row(db->res))){
         if(i==number) {
@@ -56,7 +55,6 @@ std::string parser::returnCommentToDeck(int number) {
     std::unique_ptr<dataBase> db = std::make_unique<dataBase>();
     std::string tempQry = "SELECT table_comment FROM INFORMATION_SCHEMA.TABLES WHERE table_name=\""+this->returnNameOfDeck(number)+"\";";
     const char * qry = tempQry.c_str();
-
     db->res = db->mysql_execute_querry(qry);
     db->row = mysql_fetch_row(db->res);
     std::string temp = db->row[0];

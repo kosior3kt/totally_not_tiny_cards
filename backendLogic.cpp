@@ -8,9 +8,15 @@
 
 std::vector<Card> backendLogic::fillTheVector(int numberOfDeck) {
     dataBase db;
-    std::cout<<"i'm filling the vector of cards";
+    std::cout<<"i'm filling the vector of cards\n";
     std::vector<Card> tempCardDeckVector;
-    const char * qry = "select * from mysql_tuts.dummydeck;";
+    std::string tempQry = "select * from mysql_tuts.";
+    std::string tempDeckName = returnNameOfDeck(numberOfDeck);
+    std::string tempQry2 = ";";
+    tempQry = tempQry+tempDeckName+tempQry2;
+
+    const char * qry=tempQry.c_str();
+    std::cout<<qry<<"\n";
     db.res = db.mysql_execute_querry( qry);
 
     while((db.row = mysql_fetch_row(db.res))){
@@ -62,9 +68,6 @@ int backendLogic::returnNumberOfTimesBeingGuessed(int numberOfTheDeck, int numbe
     }
     return 69;
 }
-
-
-
 
 std::vector<Deck> backendLogic::fillDeckVector() {
     std::vector<Deck> tempDeckVector;

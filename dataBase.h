@@ -15,14 +15,14 @@
 
 class dataBase {
 public:
-
-    void *mysql_connection_setup();
-    MYSQL_RES* mysql_execute_querry(const char *sql_query);
-    dataBase();
-
     MYSQL* con;
     MYSQL_RES* res;
     MYSQL_ROW row;
+    MYSQL_RES* mysql_execute_querry(const char *sql_query);
+    dataBase();
+private:
+    void *mysql_connection_setup();
+
 
 };
 

@@ -20,8 +20,6 @@ public:
 
     virtual std::string returnCommentToDeck(int number);
 
-
-
 };
 
 

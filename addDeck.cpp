@@ -5,10 +5,11 @@
 #include "main.h"
 
 
+int allFrames::frameAddDeck::currentlyChosen=-1;
 
 allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
-    static backendLogic logic;
+
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
     wxBoxSizer* bSizer13;
@@ -20,23 +21,19 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
     bSizer15 = new wxBoxSizer( wxVERTICAL );
 
 
-
-//    m_button8 = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Dummy deck"), wxDefaultPosition, wxDefaultSize, 0 );
-//    bSizer15->Add( m_button8, 0, wxEXPAND|wxALL, 5 );
-//
-//    m_button19 = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Add Deck"), wxDefaultPosition, wxDefaultSize, 0 );
-//    bSizer15->Add( m_button19, 0, wxEXPAND|wxALL, 5 );
-
-
         auto dodaj = [&](int i) {
             auto button = new wxButton(m_scrolledWindow2, i, logic.returnNameOfDeck(i), wxDefaultPosition, wxDefaultSize, 0);
             bSizer15->Add(button, 0, wxEXPAND | wxALL, 5);
             button->Bind(wxEVT_BUTTON, &frameAddDeck::descriptionOfTheDeck, this);
         };
 
-        for(int i=0; i<logic.parser.returnNumberOfDecks();i++){
+        for(int i=0; i<logic.returnNumberOfDecks();i++){
             dodaj(i);
         }
+
+        b_addDeck = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Add Deck"), wxDefaultPosition, wxDefaultSize, 0 );
+        b_addDeck->SetBackgroundColour(wxColor(0,150,0));
+        bSizer15->Add( b_addDeck, 0, wxEXPAND|wxALL, 5);
 
     m_scrolledWindow2->SetSizer( bSizer15 );
     m_scrolledWindow2->Layout();
@@ -49,7 +46,7 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
     wxBoxSizer* bSizer21;
     bSizer21 = new wxBoxSizer( wxVERTICAL );
 
-    m_staticText3 = new wxStaticText( this, wxID_ANY, wxT("There will be description of a chosen deck`"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL );
+    m_staticText3 = new wxStaticText( this, wxID_ANY, wxT("There will be description of a chosen deck`"), wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL | wxST_NO_AUTORESIZE);
     m_staticText3->Wrap( -1 );
     bSizer21->Add( m_staticText3, 1, wxEXPAND|wxALL, 5 );
 
@@ -81,8 +78,10 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
     this->Centre( wxBOTH );
 
     m_button17->Bind(wxEVT_BUTTON, &frameAddDeck::openStart, this);
-    m_button18->Bind(wxEVT_BUTTON, &frameAddDeck::descriptionOfTheDeck, this);
-    m_button36->Bind(wxEVT_BUTTON, &frameAddDeck::dupa, this);
+    m_button18->Bind(wxEVT_BUTTON, &frameAddDeck::openEdit, this);
+    m_button36->Bind(wxEVT_BUTTON, &frameAddDeck::deleteChosenDeck, this);
+    b_addDeck->Bind(wxEVT_BUTTON,&frameAddDeck::openCreateDeck, this);
+
 }
 
 allFrames::frameAddDeck::~frameAddDeck()
@@ -98,29 +97,50 @@ void allFrames::frameAddDeck::openStart(wxCommandEvent &) {
 }
 
 void allFrames::frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
-    backendLogic logic;
     std::string temp = logic.returnCommentToDeck(e.GetId());
+    currentlyChosen=e.GetId();
     m_staticText3->SetLabel(temp);
     m_staticText3->Wrap( -1 );
 }
 
 void allFrames::frameAddDeck::dupa(wxCommandEvent &e) {
-//    dataBaseParser *tempDataBaseParser = new dataBaseParser();
-//    std::cout<<tempDataBaseParser->returnBackOfCard(1,1)<<"\n";
-//    tempDataBaseParser->makeItAllWork();
-//    dataBaseParser *tempDataBaseParser2 = new dataBaseParser();
-//    std::cout<<tempDataBaseParser2->returnFrontOfCard(1,1)<<"\n";
-//    dataBaseParser *tempDataBaseParser3 = new dataBaseParser();
-//    std::cout<<tempDataBaseParser3->returnNumberOfTimesBeingGuessed(1,1)<<"\n";
-//    std::cout<<"\n\nwypelniam deck kartami!!\n\n";
-//    tempDataBaseParser4->fillTheVector(1);
 
-    backendLogic logic;
     std::cout << logic.returnBackOfCard(1, 1);
     std::cout<<"\n";
 
-//    delete tempDataBaseParser;
-//    delete tempDataBaseParser2;
-//    delete tempDataBaseParser3;
-//    delete tempDataBaseParser4;
 }
+
+void allFrames::frameAddDeck::openEdit(wxCommandEvent &e) {
+
+    if(currentlyChosen>=0){
+    auto *frame_add = new frameEditDeck(nullptr, currentlyChosen, wxID_ANY);
+    frame_add->Show(true);
+    this->Show(false);
+    }
+}
+
+void allFrames::frameAddDeck::openCreateDeck(wxCommandEvent &e) {
+    auto *frame_add = new frameEditDeck(nullptr);
+    frame_add->Show(true);
+    this->Show(false);
+}
+
+void allFrames::frameAddDeck::deleteChosenDeck(wxCommandEvent &e) {
+    int answer = wxMessageBox("Are You sure You want to delete this deck? \n It will be permamently lost!", "Confirm Deletion",
+                              wxYES_NO | wxNO_DEFAULT, this);
+    if(answer == wxYES){
+        logic.deleteDeck(currentlyChosen);
+        this->refresh();
+        this->Refresh();        //still have to figure out how to make this shit refresh real time…, not anymore hehe
+
+    }
+}
+
+
+void allFrames::frameAddDeck::refresh() {
+    frameAddDeck *frame_choice = new frameAddDeck(NULL);
+    frame_choice->Show(true);
+    this->Show(false);
+}
+
+
