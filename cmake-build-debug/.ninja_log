@@ -54,3 +54,11 @@
 6	2061	1655397782496136833	CMakeFiles/pjc_nowe.dir/chooseDeck.cpp.o	260aa2ebf93b08
 7	2062	1655397782497732416	CMakeFiles/pjc_nowe.dir/lesson.cpp.o	943011fa29df7a34
 2062	2187	1655397782626839833	pjc_nowe	d00055b0037cf4e
+22	1046	1655400103107101499	CMakeFiles/pjc_nowe.dir/editLogic.cpp.o	a9fa26533dc436ea
+20	2045	1655400104100581124	CMakeFiles/pjc_nowe.dir/main.cpp.o	2d0508150f636978
+22	2090	1655400104151981374	CMakeFiles/pjc_nowe.dir/start.cpp.o	1a3b3f32283a1ac4
+22	2110	1655400104171451541	CMakeFiles/pjc_nowe.dir/addDeck.cpp.o	e60a2474781cfbeb
+21	2126	1655400104188036541	CMakeFiles/pjc_nowe.dir/chooseDeck.cpp.o	260aa2ebf93b08
+22	2133	1655400104195808791	CMakeFiles/pjc_nowe.dir/edit.cpp.o	794a8c12cb5b0694
+22	2170	1655400104231977874	CMakeFiles/pjc_nowe.dir/lesson.cpp.o	943011fa29df7a34
+2170	2292	1655400104358965458	pjc_nowe	d00055b0037cf4e
