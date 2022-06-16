@@ -3,7 +3,6 @@
 //
 
 #include "main.h"
-#include "editLogic.h"
 
 int currentlyChosen_edit = -1;
 int currentCard=-1;
@@ -14,7 +13,6 @@ allFrames::frameEditDeck::frameEditDeck( wxWindow* parent, wxWindowID id, const 
     if(currentlyChosen_edit==-1){
         createDeck();
     }
-    backendLogic logic;
     currentlyChosen_edit = logic.returnNumberOfDecks()-1;
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
@@ -34,7 +32,7 @@ allFrames::frameEditDeck::frameEditDeck( wxWindow* parent, wxWindowID id, const 
         button->Bind(wxEVT_BUTTON, &allFrames::frameEditDeck::updateCurrentlyChosen, this);
     };
 
-    for(int i=0; i<logic.parser.returnNumberOfCardsInDeck(currentlyChosen_edit);i++){
+    for(int i=0; i<logic.returnNumberOfCardsInDeck(currentlyChosen_edit);i++){
         dodaj(i);
     }
 
@@ -145,7 +143,6 @@ allFrames::frameEditDeck::frameEditDeck( wxWindow* parent,int number, wxWindowID
 
     this->SetMinSize(wxSize(600, 900));
 
-    backendLogic logic;
     currentlyChosen_edit = number;
 //    std::cout<<number;
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
@@ -170,11 +167,11 @@ allFrames::frameEditDeck::frameEditDeck( wxWindow* parent,int number, wxWindowID
         button->Bind(wxEVT_BUTTON, &allFrames::frameEditDeck::updateCurrentlyChosen, this);
     };
 
-    for(int i=0; i<logic.parser.returnNumberOfCardsInDeck(currentlyChosen_edit);i++){
+    for(int i=0; i<logic.returnNumberOfCardsInDeck(currentlyChosen_edit);i++){
         dodaj(i);
     }
 
-    m_button8 = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Add Deck"), wxDefaultPosition, wxDefaultSize, 0 );
+    m_button8 = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Add Card!!"), wxDefaultPosition, wxDefaultSize, 0 );
     m_button8->SetForegroundColour(wxColour(0,150,0));
     m_button8->SetBackgroundColour(wxColour(0,150,0));
     bSizer15->Add( m_button8, 0, wxEXPAND|wxALL, 5 );
@@ -277,7 +274,6 @@ allFrames::frameEditDeck::~frameEditDeck()
 }
 
 void allFrames::frameEditDeck::openAdd(wxCommandEvent &) {
-    editLogic logic;
 
     if(!logic.isDeckEmpty(currentlyChosen_edit)){
         logic.deleteDeck(currentlyChosen_edit);
@@ -300,7 +296,6 @@ void allFrames::frameEditDeck::openAdd(wxCommandEvent &) {
 
 void allFrames::frameEditDeck::openAddWithoutSaving(wxCommandEvent &e) {
 
-    editLogic logic;
     logic.deleteDeck(logic.returnNumberOfDecks()-1);
     currentCard=-1;
     currentlyChosen_edit=-1;
@@ -311,7 +306,6 @@ void allFrames::frameEditDeck::openAddWithoutSaving(wxCommandEvent &e) {
 }
 
 void allFrames::frameEditDeck::renameDeck() {
-    editLogic logic;
     wxString str = m_textCtrl5->GetValue();
     std::string temp = const_cast<const char *>((const char *) str.mb_str());
 
@@ -326,7 +320,6 @@ void allFrames::frameEditDeck::renameDeck() {
 }
 
 void allFrames::frameEditDeck::addCommentToDeck() {
-    editLogic logic;
     wxString str = m_textCtrl6->GetValue();
     std::string temp = const_cast<const char *>((const char *) str.mb_str());
     if(!temp.empty()) {
@@ -336,19 +329,16 @@ void allFrames::frameEditDeck::addCommentToDeck() {
 }
 
 void allFrames::frameEditDeck::createDeck() {
-    editLogic logic;
     logic.createDeck();
 }
 
 void allFrames::frameEditDeck::deleteCard(wxCommandEvent &e) {
-    editLogic logic;
     logic.deleteCard(currentCard, currentlyChosen_edit);
     this->refresh();
 
 }
 
 void allFrames::frameEditDeck::addCard(wxCommandEvent &e) {
-    editLogic logic;
     wxString tempFrontWX = m_textCtrl3->GetValue();
     wxString tempBackWX = m_textCtrl4->GetValue();
     std::string tempFront = const_cast<const char *>((const char *) tempFrontWX.mb_str());
@@ -362,7 +352,6 @@ void allFrames::frameEditDeck::addCard(wxCommandEvent &e) {
 }
 
 void allFrames::frameEditDeck::updateCurrentlyChosen(wxCommandEvent &e) {
-    editLogic logic;
 
     currentCard = e.GetId();
     this->m_textCtrl3->SetValue(logic.returnFrontOfCard(currentlyChosen_edit, currentCard));

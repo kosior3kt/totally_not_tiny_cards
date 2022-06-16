@@ -12,7 +12,6 @@ std::string accesors::currentlyChosenDeckName;
 
 allFrames::frameChooseDeck::frameChooseDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
-    std::unique_ptr<backendLogic> logic = std::make_unique<backendLogic>();
     accesors::currentlyChosen=0;
 
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
@@ -27,12 +26,12 @@ allFrames::frameChooseDeck::frameChooseDeck( wxWindow* parent, wxWindowID id, co
     bSizer15 = new wxBoxSizer( wxVERTICAL );
 
     auto dodaj = [&](int i) {
-        auto button = new wxButton(m_scrolledWindow2, i, logic->returnNameOfDeck(i), wxDefaultPosition, wxDefaultSize, 0);
+        auto button = new wxButton(m_scrolledWindow2, i, logic.returnNameOfDeck(i), wxDefaultPosition, wxDefaultSize, 0);
         bSizer15->Add(button, 0, wxEXPAND | wxALL, 5);
         button->Bind(wxEVT_BUTTON, &frameChooseDeck::descriptionOfTheDeck, this);
     };
 
-    for(int i=0; i<logic->parser.returnNumberOfDecks();i++){
+    for(int i=0; i<logic.returnNumberOfDecks();i++){
         dodaj(i);
     }
 

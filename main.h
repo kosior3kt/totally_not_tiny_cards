@@ -23,6 +23,10 @@
 #include <wx/wx.h>
 #include "wx/custombgwin.h"
 #include "backendLogic.h"
+#include "addLogic.h"
+#include "editLogic.h"
+#include "lessonLogic.h"
+
 #endif
 
 
@@ -44,7 +48,6 @@ class allFrames : public MyApp
     class frameStart : public wxFrame
     {
     private:
-
     protected:
         wxButton* b_start;  //m_button1
         wxButton* b_addDeck;    //m_button2
@@ -101,25 +104,18 @@ class allFrames : public MyApp
     class frameChooseDeck: public wxFrame
     {
     private:
-    protected:
-        wxScrolledWindow* m_scrolledWindow2;
-        wxButton* m_button8;        //m_button8
-        wxButton* m_button19;        //m_button19
-        wxStaticText* m_staticText3;
-        wxButton* m_button17;        //m_button17
-        wxButton* m_button18;        //m_button18
-
-    public:
-//         int integer;
-//         wxStaticText staticText;
-//          static int currentlyChosen;
-        frameChooseDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 558,420 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        backendLogic logic;
         void descriptionOfTheDeck(wxCommandEvent &);
         void openLesson(wxCommandEvent &);
         void openStart(wxCommandEvent &);
-
+    protected:
+        wxScrolledWindow* m_scrolledWindow2;
+        wxStaticText* m_staticText3;
+        wxButton* m_button17;        //m_button17
+        wxButton* m_button18;        //m_button18
+    public:
+        frameChooseDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 558,420 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
         ~frameChooseDeck();
-
     };
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -128,10 +124,21 @@ class allFrames : public MyApp
     class frameEditDeck : public wxFrame
     {
     private:
+        editLogic logic;
+        void deleteCard(wxCommandEvent &e);
+        void addCard(wxCommandEvent &e);
+        void updateCurrentlyChosen(wxCommandEvent &e);
+        void setCurrentChosenToAddMode(wxCommandEvent &e);
+        void refresh();
+        void createDeck();
+        void renameDeck();
+        void addCommentToDeck();
+        void changeDeckNameAndComment(wxCommandEvent &e);
+        void openAdd(wxCommandEvent &e);
+        void openAddWithoutSaving(wxCommandEvent &e);
     protected:
         wxScrolledWindow* m_scrolledWindow2;
         wxButton* m_button8;        //m_button8
-        wxButton* m_button19;        //m_button19
         wxButton* b_cancel;        //m_button17
         wxStaticText* m_staticText6;
         wxStaticText* m_staticText8;
@@ -148,18 +155,6 @@ class allFrames : public MyApp
 
     public:
 
-        void deleteCard(wxCommandEvent &e);
-        void addCard(wxCommandEvent &e);
-        void updateCurrentlyChosen(wxCommandEvent &e);
-        void setCurrentChosenToAddMode(wxCommandEvent &e);
-        void refresh();
-        void createDeck();
-        void renameDeck();
-        void addCommentToDeck();
-        void changeDeckNameAndComment(wxCommandEvent &e);
-        void openAdd(wxCommandEvent &e);
-        void openAddWithoutSaving(wxCommandEvent &e);
-
         frameEditDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 612,454 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
         frameEditDeck( wxWindow* parent, int number, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 612,454 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
@@ -173,6 +168,14 @@ class allFrames : public MyApp
     class frameAddDeck : public wxFrame
     {
     private:
+        addLogic logic;
+        static int currentlyChosen;
+        void deleteChosenDeck(wxCommandEvent &e);
+        void openCreateDeck(wxCommandEvent &e);
+        void openEdit(wxCommandEvent &e);
+        void refresh();
+        void descriptionOfTheDeck(wxCommandEvent &);
+        void openStart(wxCommandEvent &);
     protected:
         wxScrolledWindow* m_scrolledWindow2;
         wxButton* b_addDeck;        //m_button8
@@ -183,15 +186,9 @@ class allFrames : public MyApp
 
 
     public:
-        static int currentlyChosen;
-        void deleteChosenDeck(wxCommandEvent &e);
-        void openCreateDeck(wxCommandEvent &e);
-        void openEdit(wxCommandEvent &e);
-        wxStaticText staticText;
-        void refresh();
+
         frameAddDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 641,473 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
-        void descriptionOfTheDeck(wxCommandEvent &);
-        void openStart(wxCommandEvent &);
+
         void dupa(wxCommandEvent &);
 
         ~frameAddDeck();

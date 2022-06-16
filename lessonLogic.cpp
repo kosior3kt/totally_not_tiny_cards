@@ -62,7 +62,7 @@ bool lessonLogic::isEmpty() {
 }
 
 int lessonLogic::returnSizeOfVector() {
-    return this->vectorForWork.size();
+    return vectorForWork.size();
 }
 
 void lessonLogic::setPassedFlagToTrue() {

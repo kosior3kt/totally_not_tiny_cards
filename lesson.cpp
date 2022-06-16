@@ -13,10 +13,6 @@ bool checked=false;
 
 allFrames::frameLesson::frameLesson( wxWindow* parent, int number, const wxString& title, wxWindowID id, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
-
-//    num=number;
-//    *tempPtr = number;
-//
     logic = std::make_unique<lessonLogic>(number);
 
     m_gauge1 = new wxGauge(this, wxID_ANY, 100);
@@ -171,9 +167,9 @@ void allFrames::frameLesson::checkCorrectness(wxCommandEvent &e) {
         if (logic->current.back == temp) {
             logic->guessedRight();
             m_staticText8->SetForegroundColour(wxColor(*wxGREEN));
-            int temp = m_gauge1->GetValue();
-            temp += increment;
-            m_gauge1->SetValue(temp);
+            int tempInt = m_gauge1->GetValue();
+            tempInt += increment;
+            m_gauge1->SetValue(tempInt);
         } else {
             logic->guessedWrong();
             m_staticText8->SetForegroundColour(wxColor(*wxRED));
@@ -183,7 +179,7 @@ void allFrames::frameLesson::checkCorrectness(wxCommandEvent &e) {
 }
 
 void allFrames::frameLesson::openChoice(wxCommandEvent &e) {
-    frameChooseDeck *frame_add = new frameChooseDeck(NULL);
+    frameChooseDeck *frame_add = new frameChooseDeck(nullptr);
     frame_add->Show(true);
     this->Show(false);
 }
@@ -201,7 +197,7 @@ void allFrames::frameLesson::showCorrectAnswer(wxCommandEvent &e) {
 }
 
 void allFrames::frameLesson::openChoice() {
-    frameChooseDeck *frame_add = new frameChooseDeck(NULL);
+    frameChooseDeck *frame_add = new frameChooseDeck(nullptr);
     frame_add->Show(true);
     this->Show(false);
 }
@@ -217,7 +213,6 @@ void allFrames::frameLesson::keyPressed(wxKeyEvent &e) {
                 this->checkCorrectness();
             }
         }
-
     }
     else
         e.Skip();
@@ -248,9 +243,9 @@ void allFrames::frameLesson::checkCorrectness() {
         if (logic->current.back == temp) {
             logic->guessedRight();
             m_staticText8->SetForegroundColour(wxColor(*wxGREEN));
-            int temp = m_gauge1->GetValue();
-            temp += increment;
-            m_gauge1->SetValue(temp);
+            int tempInt = m_gauge1->GetValue();
+            tempInt += increment;
+            m_gauge1->SetValue(tempInt);
         } else {
             logic->guessedWrong();
             m_staticText8->SetForegroundColour(wxColor(*wxRED));

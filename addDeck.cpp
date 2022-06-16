@@ -3,7 +3,6 @@
 //
 
 #include "main.h"
-#include "addLogic.h"
 
 
 int allFrames::frameAddDeck::currentlyChosen=-1;
@@ -11,7 +10,6 @@ int allFrames::frameAddDeck::currentlyChosen=-1;
 allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 
-    static backendLogic logic;
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
     wxBoxSizer* bSizer13;
@@ -29,7 +27,7 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
             button->Bind(wxEVT_BUTTON, &frameAddDeck::descriptionOfTheDeck, this);
         };
 
-        for(int i=0; i<logic.parser.returnNumberOfDecks();i++){
+        for(int i=0; i<logic.returnNumberOfDecks();i++){
             dodaj(i);
         }
 
@@ -99,7 +97,6 @@ void allFrames::frameAddDeck::openStart(wxCommandEvent &) {
 }
 
 void allFrames::frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
-    backendLogic logic;
     std::string temp = logic.returnCommentToDeck(e.GetId());
     currentlyChosen=e.GetId();
     m_staticText3->SetLabel(temp);
@@ -108,7 +105,6 @@ void allFrames::frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
 
 void allFrames::frameAddDeck::dupa(wxCommandEvent &e) {
 
-    backendLogic logic;
     std::cout << logic.returnBackOfCard(1, 1);
     std::cout<<"\n";
 
@@ -133,7 +129,6 @@ void allFrames::frameAddDeck::deleteChosenDeck(wxCommandEvent &e) {
     int answer = wxMessageBox("Are You sure You want to delete this deck? \n It will be permamently lost!", "Confirm Deletion",
                               wxYES_NO | wxNO_DEFAULT, this);
     if(answer == wxYES){
-        addLogic logic;
         logic.deleteDeck(currentlyChosen);
         this->refresh();
         this->Refresh();        //still have to figure out how to make this shit refresh real time…, not anymore hehe

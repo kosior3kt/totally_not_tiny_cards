@@ -11,15 +11,14 @@
 class editLogic: public addLogic{
     int deckIndex;
     dataBase db;
-    backendLogic logic;
 public:
     bool isDeckEmpty(int deckNum);
     void deleteCard(int currentlySelectedCard, int deck);
-    void insertCard(std::string front, std::string back, int number);
+    void insertCard(const std::string& front, const std::string& back, int number);
     void changeCard(std::string front, std::string back, int numberOfDeck, int numberOfCard);
     void clearBuffer();
-    bool containsWhiteSpaces(std::string nameAsWell);
-    void setComment(std::string comment, int name);
+    bool containsWhiteSpaces(const std::string& nameAsWell);
+    void setComment(const std::string& comment, int name);
     void createDeck();
     void renameDeck(std::string name, int number);
 
