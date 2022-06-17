@@ -5,7 +5,7 @@
 12	1613	1655453992595840124	CMakeFiles/pjc_nowe.dir/dataBase.cpp.o	5cf53ba7fca4c03e
 15	2197	1655455511970459458	CMakeFiles/pjc_nowe.dir/lesson.cpp.o	943011fa29df7a34
 10	1891	1655453992874874124	CMakeFiles/pjc_nowe.dir/backendLogic.cpp.o	cb28be32ee6a97e2
-4	555	1655455777027072083	build.ninja	b3e5440ee4b24176
+4	555	1655456088521918041	build.ninja	b3e5440ee4b24176
 14	2177	1655455511950245958	CMakeFiles/pjc_nowe.dir/chooseDeck.cpp.o	260aa2ebf93b08
 5	1634	1654086900498978836	CMakeFiles/pjc_nowe.dir/chooseDecks.cpp.o	7ad88e17925ef007
 2245	2367	1655455512144715333	pjc_nowe	d42458f890437ab2
@@ -15,8 +15,8 @@
 5	1687	1654205968983010749	CMakeFiles/pjc_nowe.dir/accesors.cpp.o	fb06ab4a0da6de31
 4	2018	1654080466611806559	CMakeFiles/pjc_nowe.dir/choseDeck.cpp.o	8934fe64a7914392
 15	2244	1655455512018670416	CMakeFiles/pjc_nowe.dir/edit.cpp.o	794a8c12cb5b0694
-14	1692	1655453992675432624	CMakeFiles/pjc_nowe.dir/parser.cpp.o	814228d1b420f81e
 1692	3375	1655453994357283791	CMakeFiles/pjc_nowe.dir/addLogic.cpp.o	b36f44a49000577a
+14	1692	1655453992675432624	CMakeFiles/pjc_nowe.dir/parser.cpp.o	814228d1b420f81e
 16	2088	1655455511856449416	CMakeFiles/pjc_nowe.dir/allFrames.cpp.o	c19e50e4bf427204
 5	1238	1654986719901111583	CMakeFiles/pjc_nowe.dir/dataBase_old.cpp.o	7ed1ba49628e3957
 14	2220	1655455511993831291	CMakeFiles/pjc_nowe.dir/addDeck.cpp.o	e60a2474781cfbeb

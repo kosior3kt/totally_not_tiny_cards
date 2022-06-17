@@ -10,6 +10,7 @@
 
 class addLogic: public backendLogic {
 public:
+    ///this method is responsible for deleting a deck with a chosen index
     static void deleteDeck(int number);
 
 };

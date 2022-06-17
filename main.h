@@ -33,6 +33,7 @@
 class MyApp: public wxApp
 {
 public:
+    ///this method initializes menu(start) frame
     bool OnInit() override;
 };
 
@@ -49,14 +50,17 @@ class allFrames : public MyApp
     class frameStart : public wxFrame
     {
     private:
+        ///this method is used to generate new frame and close current
         void openChoice(wxCommandEvent &);
+        ///this method is used to generate new frame and close current
         void openAdd(wxCommandEvent &);
+        ///this method is used to clean up memory before leaving application
         void OnExit(wxCommandEvent&);
     protected:
-        wxButton* b_start;  //m_button1
-        wxButton* b_addDeck;    //m_button2
-        wxButton* b_settings;    //m_button3
-        wxButton* b_exit;    //m_button4
+        wxButton* b_start;
+        wxButton* b_addDeck;
+        wxButton* b_settings;
+        wxButton* b_exit;
 
     public:
         explicit frameStart( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 397,334 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
@@ -70,13 +74,21 @@ class allFrames : public MyApp
     private:
         std::vector<std::string> front;
         std::vector<std::string> back;
+        ///this method is used to generate new frame and close current
         void openChoice();
+        ///this method is used to listen for a key presses during a lesson it also helps automate process
         void keyPressed(wxKeyEvent &e);
+        ///this method makes sure, that user is aware that closing app will mean losing progress
         void AskUser();
+        ///this method is responsible for showing a card, when button is being pressed
         void showCard(wxCommandEvent &e);
+        ///this method is responsible for showing a card without button being pressed (used in other functions)
         void showCard();
+        ///this method is responsible for checking correctness of the proposed solution
         void checkCorrectness(wxCommandEvent &);
+        ///this method is responsible for checking correctness of a proposed solution but without needing button to be pressed
         void checkCorrectness();
+        ///this method is responsible for showing correct solution
         void showCorrectAnswer(wxCommandEvent &e);
     protected:
         wxScrolledWindow* m_scrolledWindow1;
@@ -103,8 +115,11 @@ class allFrames : public MyApp
         int currentlyChosen;
         std::string currentlyChosenDeckName;
         backendLogic logic;
+        ///this method is responsible for showing description of the deck on the screen
         void descriptionOfTheDeck(wxCommandEvent &);
+        ///this method is used to generate new frame and close current
         void openLesson(wxCommandEvent &);
+        ///this method is used to generate new frame and close current
         void openStart(wxCommandEvent &);
     protected:
         wxScrolledWindow* m_scrolledWindow2;
@@ -124,16 +139,27 @@ class allFrames : public MyApp
     {
     private:
         editLogic logic;
+        ///this method is responsible for deleting a card from database
         void deleteCard(wxCommandEvent &e);
+        ///this method is responsible for adding a card to the database
         void addCard(wxCommandEvent &e);
+        ///this method is responsible for updating which deck is currently chosen
         void updateCurrentlyChosen(wxCommandEvent &e);
+        ///this method is responsible for togling between eddit mode and view mode
         void setCurrentChosenToAddMode(wxCommandEvent &e);
+        ///this method is responsible for refreshing
         void refresh();
+        ///this method is responsible for creating a deck
         void createDeck();
+        ///this method is responsible for renaming a deck
         void renameDeck();
+        ///this method is resopnsible for edditing a comment to a deck
         void addCommentToDeck();
+        ///this method is responsible for changing name and comment of a deck when the button is being pressed
         void changeDeckNameAndComment(wxCommandEvent &e);
+        ///this method is used to generate new frame and close current
         void openAdd(wxCommandEvent &e);
+        ///this method is used to generate new frame and close current but without deck being created
         void openAddWithoutSaving(wxCommandEvent &e);
     protected:
         wxScrolledWindow* m_scrolledWindow2;
@@ -169,11 +195,17 @@ class allFrames : public MyApp
     private:
         addLogic logic;
         static int currentlyChosen;
+        ///this method is responsible for deleting currently chosen deck
         void deleteChosenDeck(wxCommandEvent &e);
+        ///this method is responsible for opening currently chosen deck
         void openCreateDeck(wxCommandEvent &e);
+        ///this method is responsible for creating new frame and closing current
         void openEdit(wxCommandEvent &e);
+        ///this method is responsible for refreshing current frame
         void refresh();
+        ///this method is responsible for printing description of a deck to the static text field
         void descriptionOfTheDeck(wxCommandEvent &);
+        ///this method is responsible for creating new frame and closing current
         void openStart(wxCommandEvent &);
     protected:
         wxScrolledWindow* m_scrolledWindow2;

@@ -8,15 +8,16 @@
  void *dataBase::mysql_connection_setup() {
     MYSQL *connection = mysql_init(nullptr);
     if(!mysql_real_connect(connection, "localhost", "jk", "@1488#", "mysql_tuts", 0, nullptr, 0)){
-        std::cout<<"connection setup failed";
+        std::cout<<"\nconnection setup failed\n";
         exit(1);
     }
     dataBase::con = connection;
-}
+     return nullptr;
+ }
 
 MYSQL_RES *dataBase::mysql_execute_querry(const char *sql_query) const {
     if(mysql_query( con, sql_query)){
-        std::cout<<"executing querry failed, for some unknown reason… \n";
+        std::cout<<"\nexecuting query failed, for some unknown reason… \n";
         exit(420);
     }
     return mysql_use_result(con);

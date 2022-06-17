@@ -18,9 +18,11 @@ public:
     MYSQL* con{};
     MYSQL_RES* res{};
     MYSQL_ROW row{};
+    ///this method is responsible for querying from database
     MYSQL_RES* mysql_execute_querry(const char *sql_query) const;
     dataBase();
 private:
+    ///this method is responsible for connecting with (currently) hardcoded credentials
     void *mysql_connection_setup();
 };
 
