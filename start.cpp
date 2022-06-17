@@ -7,7 +7,6 @@
 allFrames::frameStart::frameStart( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
 
-
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
     wxBoxSizer* bSizer10;
@@ -54,18 +53,16 @@ allFrames::frameStart::frameStart( wxWindow* parent, wxWindowID id, const wxStri
 }
 
 allFrames::frameStart::~frameStart()
-{
-
-}
+= default;
 
 void allFrames::frameStart::openChoice(wxCommandEvent &) {
-    frameChooseDeck *frame_add = new frameChooseDeck(NULL);
+    auto *frame_add = new frameChooseDeck(nullptr);
     frame_add->Show(true);
     this->Show(false);
 }
 
 void allFrames::frameStart::openAdd(wxCommandEvent &) {
-    frameAddDeck *frame_choice = new frameAddDeck(NULL);
+    auto *frame_choice = new frameAddDeck(nullptr);
     frame_choice->Show(true);
     this->Show(false);
 }

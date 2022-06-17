@@ -196,7 +196,6 @@ void allFrames::frameLesson::openChoice() {
 }
 
 void allFrames::frameLesson::keyPressed(wxKeyEvent &e) {
-    std::cout<<e.GetKeyCode()<<"\n";
     if(e.GetKeyCode()==13){
         if(checked){
             this->showCard();

@@ -346,7 +346,6 @@ void allFrames::frameEditDeck::addCard(wxCommandEvent &e) {
 }
 
 void allFrames::frameEditDeck::updateCurrentlyChosen(wxCommandEvent &e) {
-
     currentCard = e.GetId();
     this->m_textCtrl3->SetValue(logic.returnFrontOfCard(currentlyChosen_edit, currentCard));
     this->m_textCtrl4->SetValue(logic.returnBackOfCard(currentlyChosen_edit, currentCard));
@@ -359,7 +358,6 @@ void allFrames::frameEditDeck::refresh() {      ///not sure weather currently ch
 }
 
 void allFrames::frameEditDeck::changeDeckNameAndComment(wxCommandEvent &e) {
-    std::cout<<"worked so far 1\n";
     this->renameDeck();
     this->addCommentToDeck();
 }

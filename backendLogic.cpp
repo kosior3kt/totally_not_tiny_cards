@@ -8,7 +8,6 @@
 
 std::vector<Card> backendLogic::fillTheVector(int numberOfDeck) {
     dataBase db;
-    std::cout<<"i'm filling the vector of cards\n";
     std::vector<Card> tempCardDeckVector;
     std::string tempQry = "select * from mysql_tuts.";
     std::string tempDeckName = returnNameOfDeck(numberOfDeck);
@@ -16,7 +15,6 @@ std::vector<Card> backendLogic::fillTheVector(int numberOfDeck) {
     tempQry = tempQry+tempDeckName+tempQry2;
 
     const char * qry=tempQry.c_str();
-    std::cout<<qry<<"\n";
     db.res = db.mysql_execute_querry( qry);
 
     while((db.row = mysql_fetch_row(db.res))){
@@ -33,7 +31,6 @@ std::string backendLogic::returnFrontOfCard(int numberOfTheDeck, int numberOfThe
     int i =0;
     for(const auto& x : temp){
         if(i==numberOfTheCard){
-            std::cout<<"udalo sie =3"<<"\n"<<x.front;
             return x.front;
         }
         i++;
@@ -47,7 +44,6 @@ std::string backendLogic::returnBackOfCard(int numberOfTheDeck, int numberOfTheC
     int i =0;
     for(const auto& x : temp){
         if(i==numberOfTheCard){
-            std::cout<<"udalo sie =3"<<"\n"<<x.back;
             return x.back;
         }
         i++;
@@ -61,7 +57,6 @@ int backendLogic::returnNumberOfTimesBeingGuessed(int numberOfTheDeck, int numbe
     int i =0;
     for(const auto& x : temp){
         if(i==numberOfTheCard){
-            std::cout<<"udalo sie =3"<<"\n"<<x.numberOfTimesGuessed;
             return x.numberOfTimesGuessed;
         }
         i++;
@@ -73,7 +68,6 @@ std::vector<Deck> backendLogic::fillDeckVector() {
     std::vector<Deck> tempDeckVector;
     for(int i=0; i<parser.returnNumberOfDecks(); i++){
         Deck *tempDeck = new Deck(i, parser.returnNumberOfCardsInDeck(i), parser.returnCommentToDeck(i), parser.returnNameOfDeck(i));
-//        std::cout<<i<<"    "<<parser.returnNumberOfCardsInDeck(i)<<"   "<<parser.returnNameOfDeck(i)<<"   "<<parser.returnCommentToDeck(i)<<"\n";
         tempDeckVector.push_back(*tempDeck);
     }
     return tempDeckVector;

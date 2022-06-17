@@ -49,7 +49,6 @@ void editLogic::setComment(const std::string& comment, int number) {
     std::string tempQry2=" COMMENT='";
     std::string tempQry3="';";
     tempQry=tempQry+tempDeckName+tempQry2+comment+tempQry3;
-    std::cout<<tempQry<<"\n";
     const char * qry = tempQry.c_str();
     db.mysql_execute_querry(qry);
 }
@@ -70,21 +69,17 @@ void editLogic::renameDeck(std::string name, int number) {
     tempQry=tempQry+tempDeckName+tempQry2+name+tempQry3;
 
     const char * qry = tempQry.c_str();
-    std::cout<<qry<<"\n";
     db.mysql_execute_querry(qry);
 
 }
 
 bool editLogic::isDeckEmpty(int deckNum) {
     std::string tempDeck = backendLogic::returnNameOfDeck(deckNum);
-    std::cout<<"\n"<<deckNum<<"\n";
     std::string tempQry = "SELECT EXISTS (SELECT 1 FROM ";
     std::string tempQry2 = ");";
     tempQry=tempQry+tempDeck+tempQry2;
-    std::cout<<"\n"<<tempQry<<"\n";
     const char* qry = tempQry.c_str();
     bool ans = db.mysql_execute_querry(qry);
-
     return ans;
 }
 
