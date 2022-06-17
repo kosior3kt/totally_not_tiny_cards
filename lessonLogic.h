@@ -15,7 +15,6 @@ std::vector<Card> makeTrimmedVector();
 struct localCard{
     std::string front;
     std::string back;
-
 };
     bool passedSuccesfully=false;
 std::vector<localCard> vectorForWork;
@@ -31,6 +30,4 @@ explicit lessonLogic(int num);
 std::string giveCard();
 localCard current;
 };
-
-
 #endif //PJC_NOWE_LESSONLOGIC_H

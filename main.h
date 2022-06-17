@@ -33,21 +33,25 @@
 class MyApp: public wxApp
 {
 public:
-    virtual bool OnInit();
+    bool OnInit() override;
 };
 
 class allFrames : public MyApp
         {
+        private:
+            /*
+             Jak mi się będzie chcialo, to wstawie tutaj wszystkie deklaracje nowych okien - na razie nie chce mi sie
+             */
         public:
-
-
-
     ///////////////////////////////////////////////////////////////////////////////
     /// Class frameStart
     ///////////////////////////////////////////////////////////////////////////////
     class frameStart : public wxFrame
     {
     private:
+        void openChoice(wxCommandEvent &);
+        void openAdd(wxCommandEvent &);
+        void OnExit(wxCommandEvent&);
     protected:
         wxButton* b_start;  //m_button1
         wxButton* b_addDeck;    //m_button2
@@ -55,13 +59,8 @@ class allFrames : public MyApp
         wxButton* b_exit;    //m_button4
 
     public:
-
-        frameStart( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 397,334 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
-        ///Methody cos tam cos tam sraken pierdaken
-        void openChoice(wxCommandEvent &);
-        void openAdd(wxCommandEvent &);
-        void OnExit(wxCommandEvent&);
-        ~frameStart();
+        explicit frameStart( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 397,334 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        ~frameStart() override;
     };
     ///////////////////////////////////////////////////////////////////////////////
     /// Class frameLesson
@@ -71,6 +70,14 @@ class allFrames : public MyApp
     private:
         std::vector<std::string> front;
         std::vector<std::string> back;
+        void openChoice();
+        void keyPressed(wxKeyEvent &e);
+        void AskUser();
+        void showCard(wxCommandEvent &e);
+        void showCard();
+        void checkCorrectness(wxCommandEvent &);
+        void checkCorrectness();
+        void showCorrectAnswer(wxCommandEvent &e);
     protected:
         wxScrolledWindow* m_scrolledWindow1;
         wxGauge* m_gauge1;
@@ -82,20 +89,9 @@ class allFrames : public MyApp
         wxButton* b_sprawdz;
 
     public:
-        void keyPressed(wxKeyEvent &e);
-        void AskUser();
-        void showCard(wxCommandEvent &e);
-        void showCard();
-        void checkCorrectness(wxCommandEvent &);
-        void checkCorrectness();
-        void showCorrectAnswer(wxCommandEvent &e);
-        void openChoice(wxCommandEvent &);
-        void openChoice();
 
-        frameLesson( wxWindow* parent,int number,const wxString& title ,wxWindowID id = wxID_ANY , const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 620,497 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL);
-
-        ~frameLesson();
-
+        frameLesson( wxWindow* parent,int number,const wxString& title ,wxWindowID id = wxID_ANY , const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 800,600 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL);
+        ~frameLesson() override;
     };
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -104,6 +100,8 @@ class allFrames : public MyApp
     class frameChooseDeck: public wxFrame
     {
     private:
+        int currentlyChosen;
+        std::string currentlyChosenDeckName;
         backendLogic logic;
         void descriptionOfTheDeck(wxCommandEvent &);
         void openLesson(wxCommandEvent &);
@@ -111,11 +109,12 @@ class allFrames : public MyApp
     protected:
         wxScrolledWindow* m_scrolledWindow2;
         wxStaticText* m_staticText3;
+        wxBoxSizer* bSizer21;
         wxButton* m_button17;        //m_button17
         wxButton* m_button18;        //m_button18
     public:
-        frameChooseDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 558,420 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
-        ~frameChooseDeck();
+        explicit frameChooseDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 558,420 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        ~frameChooseDeck() override;
     };
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -139,7 +138,7 @@ class allFrames : public MyApp
     protected:
         wxScrolledWindow* m_scrolledWindow2;
         wxButton* m_button8;        //m_button8
-        wxButton* b_cancel;        //m_button17
+        wxButton* b_cancel{};        //m_button17
         wxStaticText* m_staticText6;
         wxStaticText* m_staticText8;
         wxStaticText* m_staticText9;
@@ -155,10 +154,10 @@ class allFrames : public MyApp
 
     public:
 
-        frameEditDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 612,454 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
-        frameEditDeck( wxWindow* parent, int number, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 612,454 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        explicit frameEditDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 800,600 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        frameEditDeck( wxWindow* parent, int number, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 800,600 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
 
-        ~frameEditDeck();
+        ~frameEditDeck() override;
 
     };
 
@@ -184,28 +183,8 @@ class allFrames : public MyApp
         wxButton* m_button36;        //m_button36
         wxButton* m_button17;        //m_button17
 
-
     public:
-
-        frameAddDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 641,473 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
-
-        void dupa(wxCommandEvent &);
-
-        ~frameAddDeck();
-
+        explicit frameAddDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 641,473 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
+        ~frameAddDeck() override;
     };
-
-
-};
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-/// Class accessors
-///////////////////////////////////////////////////////////////////////////////
-class accesors{
-private:
-public:
-    static int currentlyChosen;
-    static std::string currentlyChosenDeckName;
 };

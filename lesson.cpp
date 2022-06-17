@@ -178,13 +178,6 @@ void allFrames::frameLesson::checkCorrectness(wxCommandEvent &e) {
     }
 }
 
-void allFrames::frameLesson::openChoice(wxCommandEvent &e) {
-    frameChooseDeck *frame_add = new frameChooseDeck(nullptr);
-    frame_add->Show(true);
-    this->Show(false);
-}
-
-
 
 void allFrames::frameLesson::showCorrectAnswer(wxCommandEvent &e) {
 
@@ -197,7 +190,7 @@ void allFrames::frameLesson::showCorrectAnswer(wxCommandEvent &e) {
 }
 
 void allFrames::frameLesson::openChoice() {
-    frameChooseDeck *frame_add = new frameChooseDeck(nullptr);
+    auto *frame_add = new frameChooseDeck(nullptr);
     frame_add->Show(true);
     this->Show(false);
 }

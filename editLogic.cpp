@@ -96,6 +96,8 @@ bool editLogic::containsWhiteSpaces(const std::string& name) {
     for(auto x: name){
         if(isspace(x))
             return true;
+        if(x=='\'' || x=='!' || x=='@')     //nie chce mi sie pisac wszystkich nielegalnych znakow, ale czaisz o co chodzi juz chyba czytaczu mojego kodu. Mogłbym tez zrobic to na odwrot i wpisac wszystkie legalne znaki, ale tego tez mi sie nie chce plus byloby wolniej
+            return true;
     }
     return false;
 }

@@ -14,7 +14,7 @@
     dataBase::con = connection;
 }
 
-MYSQL_RES *dataBase::mysql_execute_querry(const char *sql_query) {
+MYSQL_RES *dataBase::mysql_execute_querry(const char *sql_query) const {
     if(mysql_query( con, sql_query)){
         std::cout<<"executing querry failed, for some unknown reason… \n";
         exit(420);

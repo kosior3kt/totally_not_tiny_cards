@@ -10,7 +10,7 @@
 
 class addLogic: public backendLogic {
 public:
-    void deleteDeck(int number);
+    static void deleteDeck(int number);
 
 };
 

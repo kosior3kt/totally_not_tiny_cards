@@ -4,16 +4,9 @@
 
 #include "main.h"
 
-
-static wxBoxSizer* bSizer21;
-int accesors::currentlyChosen=0;
-std::string accesors::currentlyChosenDeckName;
-
-
 allFrames::frameChooseDeck::frameChooseDeck( wxWindow* parent, wxWindowID id, const wxString& title, const wxPoint& pos, const wxSize& size, long style ) : wxFrame( parent, id, title, pos, size, style )
 {
-    accesors::currentlyChosen=0;
-
+    currentlyChosen=0;
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
     wxBoxSizer* bSizer13;
@@ -34,7 +27,6 @@ allFrames::frameChooseDeck::frameChooseDeck( wxWindow* parent, wxWindowID id, co
     for(int i=0; i<logic.returnNumberOfDecks();i++){
         dodaj(i);
     }
-
 
     m_scrolledWindow2->SetSizer( bSizer15 );
     m_scrolledWindow2->Layout();
@@ -73,7 +65,6 @@ allFrames::frameChooseDeck::frameChooseDeck( wxWindow* parent, wxWindowID id, co
 
     this->SetSizer( bSizer13 );
     this->Layout();
-
     this->Centre( wxBOTH );
 
 
@@ -94,17 +85,15 @@ void allFrames::frameChooseDeck::openStart(wxCommandEvent &) {
 
 void allFrames::frameChooseDeck::descriptionOfTheDeck(wxCommandEvent &e) {
 
-    static std::unique_ptr<backendLogic> logic = std::make_unique<backendLogic>();
-    m_staticText3->SetLabel(logic->returnCommentToDeck(e.GetId()));
+    m_staticText3->SetLabel(logic.returnCommentToDeck(e.GetId()));
     m_staticText3->Wrap( -1 );
-    accesors::currentlyChosen=e.GetId();
-    accesors::currentlyChosenDeckName=logic->returnNameOfDeck(accesors::currentlyChosen);
-    std::cout<<accesors::currentlyChosen;
+    currentlyChosen=e.GetId();
+    currentlyChosenDeckName=logic.returnNameOfDeck(currentlyChosen);
 }
 
 void allFrames::frameChooseDeck::openLesson(wxCommandEvent &) {
 
-    auto *frame_add = new frameLesson(nullptr, accesors::currentlyChosen, accesors::currentlyChosenDeckName);
+    auto *frame_add = new frameLesson(nullptr, currentlyChosen, currentlyChosenDeckName);
     frame_add->Show(true);
     this->Show(false);
 }
