@@ -81,7 +81,6 @@ allFrames::frameAddDeck::frameAddDeck( wxWindow* parent, wxWindowID id, const wx
     m_button18->Bind(wxEVT_BUTTON, &frameAddDeck::openEdit, this);
     m_button36->Bind(wxEVT_BUTTON, &frameAddDeck::deleteChosenDeck, this);
     b_addDeck->Bind(wxEVT_BUTTON,&frameAddDeck::openCreateDeck, this);
-
 }
 
 allFrames::frameAddDeck::~frameAddDeck()
@@ -90,10 +89,9 @@ allFrames::frameAddDeck::~frameAddDeck()
 
 void allFrames::frameAddDeck::openStart(wxCommandEvent &) {
 
-    auto *frame_add = new frameStart(NULL);
+    auto *frame_add = new frameStart(nullptr);
     frame_add->Show(true);
     this->Show(false);
-
 }
 
 void allFrames::frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
@@ -101,13 +99,6 @@ void allFrames::frameAddDeck::descriptionOfTheDeck(wxCommandEvent &e) {
     currentlyChosen=e.GetId();
     m_staticText3->SetLabel(temp);
     m_staticText3->Wrap( -1 );
-}
-
-void allFrames::frameAddDeck::dupa(wxCommandEvent &e) {
-
-    std::cout << logic.returnBackOfCard(1, 1);
-    std::cout<<"\n";
-
 }
 
 void allFrames::frameAddDeck::openEdit(wxCommandEvent &e) {
@@ -131,11 +122,9 @@ void allFrames::frameAddDeck::deleteChosenDeck(wxCommandEvent &e) {
     if(answer == wxYES){
         logic.deleteDeck(currentlyChosen);
         this->refresh();
-        this->Refresh();        //still have to figure out how to make this shit refresh real time…, not anymore hehe
-
+        this->Refresh();        //still have to figure out how to make this shit refresh real time…, not anymore hehe, for some reason it seems to be working
     }
 }
-
 
 void allFrames::frameAddDeck::refresh() {
     frameAddDeck *frame_choice = new frameAddDeck(NULL);

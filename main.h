@@ -40,8 +40,6 @@ class allFrames : public MyApp
         {
         public:
 
-
-
     ///////////////////////////////////////////////////////////////////////////////
     /// Class frameStart
     ///////////////////////////////////////////////////////////////////////////////
@@ -104,6 +102,8 @@ class allFrames : public MyApp
     class frameChooseDeck: public wxFrame
     {
     private:
+        int currentlyChosen;
+        std::string currentlyChosenDeckName;
         backendLogic logic;
         void descriptionOfTheDeck(wxCommandEvent &);
         void openLesson(wxCommandEvent &);
@@ -111,6 +111,7 @@ class allFrames : public MyApp
     protected:
         wxScrolledWindow* m_scrolledWindow2;
         wxStaticText* m_staticText3;
+        wxBoxSizer* bSizer21;
         wxButton* m_button17;        //m_button17
         wxButton* m_button18;        //m_button18
     public:
@@ -188,8 +189,6 @@ class allFrames : public MyApp
     public:
 
         frameAddDeck( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 641,473 ), long style = wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL );
-
-        void dupa(wxCommandEvent &);
 
         ~frameAddDeck();
 
