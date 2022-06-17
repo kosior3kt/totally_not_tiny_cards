@@ -14,9 +14,9 @@
 class backendLogic: public parser {
 public:
     backendLogic();
-    std::string returnNameOfDeck(int deckNumber);
-    std::string returnCommentToDeck(int deckNumber);
-    int returnNumberOfCardsInDeck(int deckNumber);
+    std::string returnNameOfDeck(int deckNumber) override;
+    std::string returnCommentToDeck(int deckNumber) override;
+    int returnNumberOfCardsInDeck(int deckNumber) override;
 
 
     std::string returnFrontOfCard(int, int);

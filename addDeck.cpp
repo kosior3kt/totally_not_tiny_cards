@@ -127,7 +127,7 @@ void allFrames::frameAddDeck::deleteChosenDeck(wxCommandEvent &e) {
 }
 
 void allFrames::frameAddDeck::refresh() {
-    frameAddDeck *frame_choice = new frameAddDeck(NULL);
+    auto *frame_choice = new frameAddDeck(NULL);
     frame_choice->Show(true);
     this->Show(false);
 }

@@ -184,6 +184,14 @@ build CMakeFiles/pjc_nowe.dir/addLogic.cpp.o: CXX_COMPILER__pjc_nowe_Debug /User
   OBJECT_DIR = CMakeFiles/pjc_nowe.dir
   OBJECT_FILE_DIR = CMakeFiles/pjc_nowe.dir
 
+build CMakeFiles/pjc_nowe.dir/allFrames.cpp.o: CXX_COMPILER__pjc_nowe_Debug /Users/jk/Documents/pjc_nowe/allFrames.cpp || cmake_object_order_depends_target_pjc_nowe
+  DEFINES = -DWXUSINGDLL -D_FILE_OFFSET_BITS=64 -D__WXMAC__ -D__WXOSX_COCOA__ -D__WXOSX__
+  DEP_FILE = CMakeFiles/pjc_nowe.dir/allFrames.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk -std=gnu++14
+  INCLUDES = -I/Users/jk/Documents/pjc_nowe/. -I/opt/homebrew/Cellar/mysql/8.0.29/include -I/opt/homebrew/Cellar/mysql-connector-c++/8.0.29/include -isystem /opt/homebrew/lib/wx/include/osx_cocoa-unicode-3.1 -isystem /opt/homebrew/include/wx-3.1
+  OBJECT_DIR = CMakeFiles/pjc_nowe.dir
+  OBJECT_FILE_DIR = CMakeFiles/pjc_nowe.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target pjc_nowe
@@ -192,7 +200,7 @@ build CMakeFiles/pjc_nowe.dir/addLogic.cpp.o: CXX_COMPILER__pjc_nowe_Debug /User
 #############################################
 # Link the executable pjc_nowe
 
-build pjc_nowe: CXX_EXECUTABLE_LINKER__pjc_nowe_Debug CMakeFiles/pjc_nowe.dir/main.cpp.o CMakeFiles/pjc_nowe.dir/chooseDeck.cpp.o CMakeFiles/pjc_nowe.dir/addDeck.cpp.o CMakeFiles/pjc_nowe.dir/lesson.cpp.o CMakeFiles/pjc_nowe.dir/edit.cpp.o CMakeFiles/pjc_nowe.dir/start.cpp.o CMakeFiles/pjc_nowe.dir/backendLogic.cpp.o CMakeFiles/pjc_nowe.dir/Card.cpp.o CMakeFiles/pjc_nowe.dir/Deck.cpp.o CMakeFiles/pjc_nowe.dir/dataBase.cpp.o CMakeFiles/pjc_nowe.dir/parser.cpp.o CMakeFiles/pjc_nowe.dir/lessonLogic.cpp.o CMakeFiles/pjc_nowe.dir/editLogic.cpp.o CMakeFiles/pjc_nowe.dir/addLogic.cpp.o
+build pjc_nowe: CXX_EXECUTABLE_LINKER__pjc_nowe_Debug CMakeFiles/pjc_nowe.dir/main.cpp.o CMakeFiles/pjc_nowe.dir/chooseDeck.cpp.o CMakeFiles/pjc_nowe.dir/addDeck.cpp.o CMakeFiles/pjc_nowe.dir/lesson.cpp.o CMakeFiles/pjc_nowe.dir/edit.cpp.o CMakeFiles/pjc_nowe.dir/start.cpp.o CMakeFiles/pjc_nowe.dir/backendLogic.cpp.o CMakeFiles/pjc_nowe.dir/Card.cpp.o CMakeFiles/pjc_nowe.dir/Deck.cpp.o CMakeFiles/pjc_nowe.dir/dataBase.cpp.o CMakeFiles/pjc_nowe.dir/parser.cpp.o CMakeFiles/pjc_nowe.dir/lessonLogic.cpp.o CMakeFiles/pjc_nowe.dir/editLogic.cpp.o CMakeFiles/pjc_nowe.dir/addLogic.cpp.o CMakeFiles/pjc_nowe.dir/allFrames.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX12.3.sdk
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/Cellar/mysql/8.0.29/lib -Wl,-rpath,/opt/homebrew/Cellar/mysql-connector-c++/8.0.29/lib -Wl,-rpath,/opt/homebrew/lib  -L/opt/homebrew/lib  -framework IOKit  -framework Carbon  -framework Cocoa  -framework QuartzCore  -framework AudioToolbox  -framework System  -framework OpenGL  -lwx_osx_cocoau_gl-3.1  -lwx_osx_cocoau_core-3.1  -lwx_baseu-3.1  -lmysqlclient  -lmysqlcppconn8.2
   LINK_PATH = -L/opt/homebrew/Cellar/mysql/8.0.29/lib   -L/opt/homebrew/Cellar/mysql-connector-c++/8.0.29/lib   -L/opt/homebrew/lib

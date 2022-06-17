@@ -144,7 +144,6 @@ allFrames::frameEditDeck::frameEditDeck( wxWindow* parent,int number, wxWindowID
     this->SetMinSize(wxSize(600, 900));
 
     currentlyChosen_edit = number;
-//    std::cout<<number;
     this->SetSizeHints( wxDefaultSize, wxDefaultSize );
 
     wxBoxSizer* bSizer13;
@@ -155,11 +154,6 @@ allFrames::frameEditDeck::frameEditDeck( wxWindow* parent,int number, wxWindowID
     wxBoxSizer* bSizer15;
     bSizer15 = new wxBoxSizer( wxVERTICAL );
 
-//    m_button8 = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("EXAMPLE"), wxDefaultPosition, wxDefaultSize, 0 );
-//    bSizer15->Add( m_button8, 0, wxEXPAND|wxALL, 5 );
-//
-//    m_button19 = new wxButton( m_scrolledWindow2, wxID_ANY, wxT("Add Card"), wxDefaultPosition, wxDefaultSize, 0 );
-//    bSizer15->Add( m_button19, 0, wxEXPAND|wxALL, 5 );
 
     auto dodaj = [&](int i) {
         auto button = new wxButton(m_scrolledWindow2, i, logic.returnFrontOfCard(currentlyChosen_edit,i), wxDefaultPosition, wxDefaultSize, 0);
@@ -276,16 +270,16 @@ allFrames::frameEditDeck::~frameEditDeck()
 void allFrames::frameEditDeck::openAdd(wxCommandEvent &) {
 
     if(!logic.isDeckEmpty(currentlyChosen_edit)){
-        logic.deleteDeck(currentlyChosen_edit);
-        wxMessageDialog *dial = new wxMessageDialog(NULL,wxT("Cannot save empty deck!!"), wxT("Info"), wxOK);
+        editLogic::deleteDeck(currentlyChosen_edit);
+        auto *dial = new wxMessageDialog(nullptr,wxT("Cannot save empty deck!!"), wxT("Info"), wxOK);
         dial->ShowModal();
     }
     else if(logic.returnNameOfDeck(currentlyChosen_edit)=="tempDeck"){
-        logic.deleteDeck(currentlyChosen_edit);
-        wxMessageDialog *dial = new wxMessageDialog(NULL,wxT("Cannot save deck called \"tempDeck\"!!"), wxT("Info"), wxOK);
+        editLogic::deleteDeck(currentlyChosen_edit);
+        auto *dial = new wxMessageDialog(nullptr,wxT("Cannot save deck called \"tempDeck\"!!"), wxT("Info"), wxOK);
         dial->ShowModal();
     }
-    frameAddDeck *frame_choice = new frameAddDeck(NULL);
+    auto *frame_choice = new frameAddDeck(nullptr);
     currentCard=-1;
     currentlyChosen_edit=-1;
 
@@ -296,10 +290,10 @@ void allFrames::frameEditDeck::openAdd(wxCommandEvent &) {
 
 void allFrames::frameEditDeck::openAddWithoutSaving(wxCommandEvent &e) {
 
-    logic.deleteDeck(logic.returnNumberOfDecks()-1);
+    editLogic::deleteDeck(logic.returnNumberOfDecks()-1);
     currentCard=-1;
     currentlyChosen_edit=-1;
-    frameAddDeck *frame_choice = new frameAddDeck(NULL);
+    auto *frame_choice = new frameAddDeck(nullptr);
     frame_choice->Show(true);
     this->Show(false);
 
@@ -310,7 +304,7 @@ void allFrames::frameEditDeck::renameDeck() {
     std::string temp = const_cast<const char *>((const char *) str.mb_str());
 
     if(logic.containsWhiteSpaces(temp)){
-        wxMessageDialog *dial = new wxMessageDialog(NULL,wxT("Name Can't contain white spaces!!"), wxT("Info"), wxOK);
+        auto *dial = new wxMessageDialog(nullptr,wxT("Name Can't contain white spaces!!"), wxT("Info"), wxOK);
         dial->ShowModal();
     }
     else if(!temp.empty()) {

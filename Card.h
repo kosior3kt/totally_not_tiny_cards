@@ -18,6 +18,4 @@ public:
 private:
 
 };
-
-
 #endif //PJC_NOWE_CARD_H

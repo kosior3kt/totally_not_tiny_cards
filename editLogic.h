@@ -9,7 +9,7 @@
 #include "addLogic.h"
 
 class editLogic: public addLogic{
-    int deckIndex;
+    int deckIndex{};
     dataBase db;
 public:
     bool isDeckEmpty(int deckNum);

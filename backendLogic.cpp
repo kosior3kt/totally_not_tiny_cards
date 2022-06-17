@@ -59,7 +59,7 @@ int backendLogic::returnNumberOfTimesBeingGuessed(int numberOfTheDeck, int numbe
 
     std::vector<Card> temp = fillTheVector(numberOfTheDeck);
     int i =0;
-    for(auto x : temp){
+    for(const auto& x : temp){
         if(i==numberOfTheCard){
             std::cout<<"udalo sie =3"<<"\n"<<x.numberOfTimesGuessed;
             return x.numberOfTimesGuessed;
@@ -92,7 +92,7 @@ return "returnNameOdDeck in backendLogic doesnt seem to be working \n";
 std::string backendLogic::returnCommentToDeck(int deckNumber) {
 
     std::vector<Deck> temp = fillDeckVector();
-    for( auto x: temp){
+    for( const auto& x: temp){
         if(x.deckNumber == deckNumber){
             return x.commentToDeck;
         }
@@ -107,13 +107,10 @@ int backendLogic::returnNumberOfCardsInDeck(int deckNumber) {
             return x.numberOfCards;
         }
     }
+    return 666;
 }
 
 backendLogic::backendLogic() {
     this->fillDeckVector();
 }
-
-
-
-///////////////////////////////////
 
