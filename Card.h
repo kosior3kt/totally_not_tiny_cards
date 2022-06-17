@@ -16,6 +16,5 @@ public:
     int numberOfTimesGuessed;
     Card(std::string front_to_fill, std::string back_to_fill, int number);
 private:
-
 };
 #endif //PJC_NOWE_CARD_H

@@ -13,7 +13,6 @@
 class Deck{
 public:
     Deck(int deckNumber1, int numberOfCards1, std::string commentTODeck1, std::string name1);
-
     int deckNumber;
     int numberOfCards;
     std::string commentToDeck;
