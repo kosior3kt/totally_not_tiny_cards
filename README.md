@@ -1,4 +1,4 @@
-#README
+# README
 I'm keeping this thing as a memory of countles hours spent figuring this out. It's trash tho - dont use it. I was young and extremly incompetent xDDDDDD
 
 ## totally_not_tiny_cards
